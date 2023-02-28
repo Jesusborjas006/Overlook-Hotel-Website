@@ -18,7 +18,6 @@ describe("Booking", () => {
   });
 
   it("Should be an instance of Booking", () => {
-    console.log(booking);
     expect(booking).to.be.an.instanceOf(Booking);
   });
 
