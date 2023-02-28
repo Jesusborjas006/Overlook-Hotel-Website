@@ -21,7 +21,6 @@ describe("Customer", () => {
   });
 
   it("Should have an id property", () => {
-    console.log(customer.name);
     expect(customer.id).to.equal(1);
   });
 
