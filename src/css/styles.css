@@ -2,29 +2,36 @@ ul {
   list-style: none;
 }
 
+span {
+  font-weight: bolder;
+}
+
 /* NavBar */
 .navbar {
   background-color: black;
   padding: 14px 0;
 }
 
-.navbar-brand {
+.overlook-logo {
   color: #fff;
   font-size: 2rem;
+  text-decoration: none;
 }
 
-.nav-link {
+.navbar-link {
   color: #fff;
   font-size: 20px;
+  text-decoration: none;
+  margin: 0 14px;
 }
 
-.nav-link:hover {
-  color: red;
+.navbar-link:hover {
+  border-bottom: 3px solid rgb(0, 81, 255);
 }
 
 /* Home Page */
 .c-item {
-  height: 89.5vh;
+  height: 91vh;
 }
 
 .c-img {
@@ -33,7 +40,66 @@ ul {
   filter: brightness(0.7);
 }
 
+/* Account Page */
+.account-heading {
+  text-align: center;
+  margin-top: 8vh;
+}
+
+.spending-container {
+  width: 80%;
+  margin: 8vh auto 0;
+}
+
+.card {
+  padding: 12px;
+}
+
+.bookings-section {
+  width: 80%;
+  margin: 8vh auto 0;
+}
+
+.btn-container {
+  width: 40%;
+  margin: 8vh auto;
+  display: flex;
+  justify-content: space-around;
+}
+
+.btn-container button {
+  width: 125px;
+  padding: 10px 0;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  background-color: #cecece;
+  transition: all ease-in-out 0.3s;
+}
+
+.btn-container button:hover {
+  background: rgb(0, 81, 255);
+  color: #fff;
+}
+
+.bookings-card-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.bookings-card {
+  border: 1px solid gray;
+  padding: 12px;
+  width: 300px;
+  border-radius: 8px;
+}
+
 /* Hide */
 .hidden {
   display: none;
+}
+
+/* Active Link */
+.active-link {
+  border-bottom: 3px solid rgb(0, 81, 255);
 }

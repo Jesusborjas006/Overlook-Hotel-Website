@@ -13,34 +13,34 @@
     <title>Overlook Hotel</title>
   </head>
   <body>
-    <main class="home-page">
-      <!-- Nav Bar -->
-      <nav class="navbar navbar-expand-lg">
-        <div class="container">
-          <a href="#" class="navbar-brand">Overlook Hotel</a>
+    <!-- Nav Bar -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a href="#" class="overlook-logo">Overlook Hotel</a>
 
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navmenu"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navmenu"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-          <div class="collapse navbar-collapse" id="navmenu">
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
-                <a href="#home" class="nav-link">Home</a>
-              </li>
-              <li class="nav-item">
-                <a href="#account" class="nav-link">Account</a>
-              </li>
-            </ul>
-          </div>
+        <div class="collapse navbar-collapse" id="navmenu">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a href="#home" class="home-link navbar-link">Home</a>
+            </li>
+            <li class="nav-item">
+              <a href="#account" class="account-link navbar-link">Account</a>
+            </li>
+          </ul>
         </div>
-      </nav>
+      </div>
+    </nav>
 
+    <main class="home-page">
       <!-- Hero Section -->
       <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
@@ -148,6 +148,39 @@
         </button>
       </div>
     </main>
+
+    <section class="account-page hidden">
+      <h2 class="account-heading">Welcome Back Jesus!</h2>
+      <div class="spending-container">
+        <div class="card">
+          <p class="spending-text"><span>2019:</span> $1000</p>
+          <p class="spending-text"><span>2019:</span> $1000</p>
+          <p class="spending-text"><span>2019:</span> $1000</p>
+        </div>
+      </div>
+
+      <section class="bookings-section">
+        <div class="btn-container">
+          <button class="all-bookings-btn">All Bookings</button>
+          <button class="upcoming-bookings-btn">Upcoming</button>
+          <button class="past-bookings-btn">Past</button>
+        </div>
+        <div class="bookings-card-container">
+          <div class="bookings-card">
+            <p><span>id:</span>?</p>
+            <p><span>userID:</span>?</p>
+            <p><span>date:</span>?</p>
+            <p><span>roomNumber:</span>?</p>
+          </div>
+          <div class="bookings-card">
+            <p><span>id:</span>?</p>
+            <p><span>userID:</span>?</p>
+            <p><span>date:</span>?</p>
+            <p><span>roomNumber:</span>?</p>
+          </div>
+        </div>
+      </section>
+    </section>
 
     <script src="bundle.js"></script>
     <script
