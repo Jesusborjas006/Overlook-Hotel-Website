@@ -6,10 +6,12 @@ import customersTestData from "./data/customerTestData";
 
 // Query Selectors
 const homePage = document.querySelector(".home-page");
+const roomsPage = document.querySelector(".rooms-page")
 const accountPage = document.querySelector(".account-page");
 
 const accountLink = document.querySelector(".account-link");
 const homeLink = document.querySelector(".home-link");
+const roomsLink = document.querySelector(".rooms-link");
 
 const bookingCardContainer = document.querySelector(".bookings-card-container");
 const customerNameHeading = document.querySelector(".account-heading");
@@ -28,12 +30,16 @@ displayBookingCards();
 displayCustomersName();
 window.addEventListener("load", () => {});
 
-accountLink.addEventListener("click", () => {
-  displayAccountPage();
-});
-
 homeLink.addEventListener("click", () => {
   displayHomePage();
+});
+
+roomsLink.addEventListener("click", () => {
+  displayRoomsPage()
+})
+
+accountLink.addEventListener("click", () => {
+  displayAccountPage();
 });
 
 // Functions
@@ -60,16 +66,29 @@ function displayBookingCards() {
   console.log(customerBookings);
 }
 
-function displayAccountPage() {
-  accountLink.classList.add("active-link");
-  homePage.classList.add("hidden");
-  homeLink.classList.remove("active-link");
-  accountPage.classList.remove("hidden");
-}
-
 function displayHomePage() {
   homeLink.classList.add("active-link");
   accountPage.classList.add("hidden");
   accountLink.classList.remove("active-link");
+  roomsLink.classList.remove("active-link");
   homePage.classList.remove("hidden");
+  roomsPage.classList.add("hidden");
+}
+
+function displayRoomsPage() {
+  roomsLink.classList.add("active-link");
+  accountPage.classList.add("hidden");
+  homePage.classList.add("hidden");
+  roomsPage.classList.remove("hidden")
+  accountLink.classList.remove("active-link");
+  homeLink.classList.remove("active-link");
+}
+
+function displayAccountPage() {
+  accountLink.classList.add("active-link");
+  homePage.classList.add("hidden");
+  homeLink.classList.remove("active-link");
+  roomsLink.classList.remove("active-link");
+  accountPage.classList.remove("hidden");
+  roomsPage.classList.add("hidden");
 }

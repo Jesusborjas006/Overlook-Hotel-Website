@@ -16,6 +16,8 @@ class Customer {
 
     return customerBookings;
   }
+
+  
 }
 
 export default Customer;
