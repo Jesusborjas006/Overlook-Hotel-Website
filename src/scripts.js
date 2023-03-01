@@ -1,11 +1,8 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-// An example of how you tell webpack to use a CSS (SCSS) file
+import Customer from "./classes/Customer";
+import CustomerRepo from "./classes/CustomerRepo";
 import "./css/styles.css";
-
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import "./images/turing-logo.png";
+import bookingsData from "./data/bookingTestData";
+import customersTestData from "./data/customerTestData";
 
 // Query Selectors
 const homePage = document.querySelector(".home-page");
@@ -14,19 +11,65 @@ const accountPage = document.querySelector(".account-page");
 const accountLink = document.querySelector(".account-link");
 const homeLink = document.querySelector(".home-link");
 
+const bookingCardContainer = document.querySelector(".bookings-card-container");
+const customerNameHeading = document.querySelector(".account-heading");
+
+// Global Variables
+let customer = new Customer(customersTestData[0]);
+console.log(customer);
+
+let customerRepo = new CustomerRepo(customersTestData);
+// Gets the first customer
+console.log(customerRepo.customers[0]);
+
 // Event Listeners
+
+displayBookingCards();
+displayCustomersName();
+window.addEventListener("load", () => {});
+
 accountLink.addEventListener("click", () => {
-  accountLink.classList.add("active-link");
-  homeLink.classList.remove("active-link");
-  homePage.classList.add("hidden");
-  accountPage.classList.remove("hidden");
+  displayAccountPage();
 });
 
 homeLink.addEventListener("click", () => {
-  homeLink.classList.add("active-link")
-  accountLink.classList.remove("active-link");
-  accountPage.classList.add("hidden");
-  homePage.classList.remove("hidden");
+  displayHomePage();
 });
 
 // Functions
+
+function displayCustomersName() {
+  customerNameHeading.innerText = `Welcome Back ${customer.getFirstName()}!`;
+}
+
+function displayBookingCards() {
+  bookingCardContainer.innerHTML = "";
+
+  let customerBookings = customer.getCustomerBookings(bookingsData);
+
+  customerBookings.forEach((book) => {
+    bookingCardContainer.innerHTML += `
+      <div class="bookings-card">
+        <p><span>id:</span> ${book.id}</p>
+        <p><span>userID:</span> ${book.userID}</p>
+        <p><span>date:</span> ${book.date}</p>
+        <p><span>roomNumber:</span> ${book.roomNumber}</p>
+      </div`;
+  });
+
+  console.log(customerBookings);
+}
+
+function displayAccountPage() {
+  accountLink.classList.add("active-link");
+  homePage.classList.add("hidden");
+  homeLink.classList.remove("active-link");
+  accountPage.classList.remove("hidden");
+}
+
+function displayHomePage() {
+  homeLink.classList.add("active-link");
+  accountPage.classList.add("hidden");
+  accountLink.classList.remove("active-link");
+  homePage.classList.remove("hidden");
+}

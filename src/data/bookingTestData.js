@@ -59,6 +59,12 @@ const bookingsData = [
     date: "2022/01/31",
     roomNumber: 20,
   },
+  {
+    id: "5fwrgu4i7k55hl6x8",
+    userID: 1,
+    date: "2023/01/11",
+    roomNumber: 20,
+  },
 ];
 
 export default bookingsData;
