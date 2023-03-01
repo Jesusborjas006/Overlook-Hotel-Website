@@ -8,6 +8,7 @@ import bookingsData from "../src/data/bookingTestData";
 describe("Customer", () => {
   let customer;
   let customerData;
+  // eslint-disable-next-line no-unused-vars
   let booking;
   let bookingTestData;
 

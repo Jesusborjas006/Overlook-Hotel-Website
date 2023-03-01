@@ -40,6 +40,62 @@ span {
   filter: brightness(0.7);
 }
 
+/* Rooms Page */
+.rooms-page {
+  height: 91vh;
+  display: flex;
+  justify-content: space-between;
+}
+
+.rooms-sub-container {
+  width: 55%;
+  padding: 28px;
+}
+
+.rooms-heading {
+  font-size: 26px;
+  text-align: center;
+}
+
+.room-card {
+  display: flex;
+}
+
+.room-card-img {
+  width: 45%;
+  border-radius: 10px;
+}
+
+.room-text-content {
+  width: 100%;
+  margin: 10px 0 0 17px;
+  padding: 0 15px;
+}
+
+.cost-text {
+  margin-bottom: 30px;
+}
+
+.cost-span {
+  font-size: 28px;
+}
+
+.room-info {
+  color: #000000a2;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.extra-features {
+  display: flex;
+  justify-content: space-between;
+}
+
+.map-container {
+  background-color: green;
+  width: 45%;
+}
+
 /* Account Page */
 .account-heading {
   text-align: center;
