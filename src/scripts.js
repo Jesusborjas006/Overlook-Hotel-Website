@@ -22,6 +22,10 @@ const customerNameHeading = document.querySelector(".account-heading");
 
 const roomCardContainer = document.querySelector(".room-card-container");
 
+const allBookingsBtn = document.querySelector(".all-bookings-btn");
+const upcomingBookingsBtn = document.querySelector(".upcoming-bookings-btn");
+const pastBookingsBtn = document.querySelector(".past-bookings-btn");
+
 // Global Variables
 
 // Customer Data
@@ -34,7 +38,7 @@ console.log(roomsRepo);
 
 // Event Listeners
 
-displayBookingCards();
+displayAllCustomerBookings()
 displayCustomersName();
 displayRoomCards();
 window.addEventListener("load", () => {});
@@ -49,6 +53,18 @@ roomsLink.addEventListener("click", () => {
 
 accountLink.addEventListener("click", () => {
   displayAccountPage();
+});
+
+allBookingsBtn.addEventListener("click", () => {
+  displayAllCustomerBookings();
+});
+
+upcomingBookingsBtn.addEventListener("click", () => {
+  displayUpcomingCustomerBookings();
+});
+
+pastBookingsBtn.addEventListener("click", () => {
+  displayPastCustomerBookings();
 });
 
 // Functions
@@ -80,22 +96,6 @@ function displayCustomersName() {
   customerNameHeading.innerText = `Welcome Back ${customer.getFirstName()}!`;
 }
 
-function displayBookingCards() {
-  bookingCardContainer.innerHTML = "";
-
-  let customerBookings = customer.getCustomerBookings(bookingsData);
-
-  customerBookings.forEach((book) => {
-    bookingCardContainer.innerHTML += `
-      <div class="bookings-card">
-        <p><span>id:</span> ${book.id}</p>
-        <p><span>userID:</span> ${book.userID}</p>
-        <p><span>date:</span> ${book.date}</p>
-        <p><span>roomNumber:</span> ${book.roomNumber}</p>
-      </div`;
-  });
-}
-
 function displayHomePage() {
   homeLink.classList.add("active-link");
   accountPage.classList.add("hidden");
@@ -121,4 +121,62 @@ function displayAccountPage() {
   roomsLink.classList.remove("active-link");
   accountPage.classList.remove("hidden");
   roomsPage.classList.add("hidden");
+}
+
+function displayAllCustomerBookings() {
+  allBookingsBtn.classList.add("active-bookings-btn");
+  upcomingBookingsBtn.classList.remove("active-bookings-btn");
+  pastBookingsBtn.classList.remove("active-bookings-btn");
+
+  bookingCardContainer.innerHTML = "";
+
+  let customerAllBookings = customer.getCustomerBookings(bookingsData);
+
+  customerAllBookings.forEach((book) => {
+    bookingCardContainer.innerHTML += `
+      <div class="bookings-card">
+        <p><span>id:</span> ${book.id}</p>
+        <p><span>userID:</span> ${book.userID}</p>
+        <p><span>date:</span> ${book.date}</p>
+        <p><span>roomNumber:</span> ${book.roomNumber}</p>
+      </div`;
+  });
+}
+
+function displayUpcomingCustomerBookings() {
+  upcomingBookingsBtn.classList.add("active-bookings-btn");
+  allBookingsBtn.classList.remove("active-bookings-btn");
+  pastBookingsBtn.classList.remove("active-bookings-btn");
+
+  bookingCardContainer.innerHTML = "";
+
+  let customerUpcomingBookings = customer.getUpcomingBookings(bookingsData);
+  customerUpcomingBookings.forEach((book) => {
+    bookingCardContainer.innerHTML += `
+      <div class="bookings-card">
+        <p><span>id:</span> ${book.id}</p>
+        <p><span>userID:</span> ${book.userID}</p>
+        <p><span>date:</span> ${book.date}</p>
+        <p><span>roomNumber:</span> ${book.roomNumber}</p>
+      </div`;
+  });
+}
+
+function displayPastCustomerBookings() {
+  pastBookingsBtn.classList.add("active-bookings-btn");
+  allBookingsBtn.classList.remove("active-bookings-btn");
+  upcomingBookingsBtn.classList.remove("active-bookings-btn");
+
+  bookingCardContainer.innerHTML = "";
+
+  let customerPastBookings = customer.getPastBookings(bookingsData);
+  customerPastBookings.forEach((book) => {
+    bookingCardContainer.innerHTML += `
+      <div class="bookings-card">
+        <p><span>id:</span> ${book.id}</p>
+        <p><span>userID:</span> ${book.userID}</p>
+        <p><span>date:</span> ${book.date}</p>
+        <p><span>roomNumber:</span> ${book.roomNumber}</p>
+      </div`;
+  });
 }

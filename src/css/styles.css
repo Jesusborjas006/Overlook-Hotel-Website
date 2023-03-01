@@ -67,7 +67,6 @@ span {
 .room-card-img {
   width: 45%;
   border-radius: 10px;
-
 }
 
 .room-text-content {
@@ -139,6 +138,11 @@ span {
 
 .btn-container button:hover {
   background: rgb(0, 81, 255);
+  color: #fff;
+}
+
+.active-bookings-btn {
+  background-color: rgb(0, 81, 255) !important;
   color: #fff;
 }
 
