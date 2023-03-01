@@ -1,25 +1,39 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-
 ul {
   list-style: none;
 }
 
+/* NavBar */
+.navbar {
+  background-color: black;
+  padding: 14px 0;
+}
+
+.navbar-brand {
+  color: #fff;
+  font-size: 2rem;
+}
+
 .nav-link {
   color: #fff;
+  font-size: 20px;
+}
+
+.nav-link:hover {
+  color: red;
 }
 
 /* Home Page */
 .c-item {
-  height: 600px;
+  height: 89.5vh;
 }
 
 .c-img {
   height: 100%;
   object-fit: cover;
   filter: brightness(0.7);
+}
+
+/* Hide */
+.hidden {
+  display: none;
 }
