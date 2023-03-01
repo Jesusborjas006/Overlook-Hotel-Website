@@ -19,6 +19,7 @@ const accountLink = document.querySelector(".account-link");
 
 const bookingCardContainer = document.querySelector(".bookings-card-container");
 const customerNameHeading = document.querySelector(".account-heading");
+const spendingContainer = document.querySelector(".spending-container");
 
 const roomCardContainer = document.querySelector(".room-card-container");
 
@@ -38,8 +39,9 @@ console.log(roomsRepo);
 
 // Event Listeners
 
-displayAllCustomerBookings()
+displayAllCustomerBookings();
 displayCustomersName();
+displayTotalCost()
 displayRoomCards();
 window.addEventListener("load", () => {});
 
@@ -94,33 +96,6 @@ function displayRoomCards() {
 
 function displayCustomersName() {
   customerNameHeading.innerText = `Welcome Back ${customer.getFirstName()}!`;
-}
-
-function displayHomePage() {
-  homeLink.classList.add("active-link");
-  accountPage.classList.add("hidden");
-  accountLink.classList.remove("active-link");
-  roomsLink.classList.remove("active-link");
-  homePage.classList.remove("hidden");
-  roomsPage.classList.add("hidden");
-}
-
-function displayRoomsPage() {
-  roomsLink.classList.add("active-link");
-  accountPage.classList.add("hidden");
-  homePage.classList.add("hidden");
-  roomsPage.classList.remove("hidden");
-  accountLink.classList.remove("active-link");
-  homeLink.classList.remove("active-link");
-}
-
-function displayAccountPage() {
-  accountLink.classList.add("active-link");
-  homePage.classList.add("hidden");
-  homeLink.classList.remove("active-link");
-  roomsLink.classList.remove("active-link");
-  accountPage.classList.remove("hidden");
-  roomsPage.classList.add("hidden");
 }
 
 function displayAllCustomerBookings() {
@@ -180,3 +155,58 @@ function displayPastCustomerBookings() {
       </div`;
   });
 }
+
+function displayHomePage() {
+  homeLink.classList.add("active-link");
+  accountPage.classList.add("hidden");
+  accountLink.classList.remove("active-link");
+  roomsLink.classList.remove("active-link");
+  homePage.classList.remove("hidden");
+  roomsPage.classList.add("hidden");
+}
+
+function displayRoomsPage() {
+  roomsLink.classList.add("active-link");
+  accountPage.classList.add("hidden");
+  homePage.classList.add("hidden");
+  roomsPage.classList.remove("hidden");
+  accountLink.classList.remove("active-link");
+  homeLink.classList.remove("active-link");
+}
+
+function displayAccountPage() {
+  accountLink.classList.add("active-link");
+  homePage.classList.add("hidden");
+  homeLink.classList.remove("active-link");
+  roomsLink.classList.remove("active-link");
+  accountPage.classList.remove("hidden");
+  roomsPage.classList.add("hidden");
+}
+
+function getCustomersTotal() {
+  let customerBookings = customer
+    .getCustomerBookings(bookingsData)
+    .map((room) => {
+      return room.roomNumber;
+    });
+
+  let allRoomsBooked = allRooms.filter((room) => {
+    return customerBookings.includes(room.number);
+  });
+
+  let totalCost = allRoomsBooked.reduce((acc, current) => {
+    return (acc += current.costPerNight);
+  }, 0);
+
+  console.log(totalCost);
+  return totalCost;
+}
+
+function displayTotalCost() {
+  spendingContainer.innerHTML = `
+    <div class="card">
+      <p class="spending-text"><span>Total Spending:</span> $${getCustomersTotal()}</p>
+    </div>
+  `;
+}
+

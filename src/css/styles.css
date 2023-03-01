@@ -108,6 +108,7 @@ span {
 .spending-container {
   width: 80%;
   margin: 8vh auto 0;
+  text-align: center;
 }
 
 .card {
