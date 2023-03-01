@@ -1,3 +1,170 @@
-body {
-  background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+ul {
+  list-style: none;
+}
+
+span {
+  font-weight: bolder;
+}
+
+/* NavBar */
+.navbar {
+  background-color: black;
+  padding: 14px 0;
+}
+
+.overlook-logo {
+  color: #fff;
+  font-size: 2rem;
+  text-decoration: none;
+}
+
+.navbar-link {
+  color: #fff;
+  font-size: 20px;
+  text-decoration: none;
+  margin: 0 14px;
+}
+
+.navbar-link:hover {
+  border-bottom: 3px solid rgb(0, 81, 255);
+}
+
+/* Home Page */
+.c-item {
+  height: 91vh;
+}
+
+.c-img {
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.7);
+}
+
+/* Rooms Page */
+.rooms-page {
+  height: 91vh;
+  max-height: 91vh;
+  display: flex;
+  justify-content: space-between;
+}
+
+.rooms-sub-container {
+  width: 55%;
+  padding: 28px;
+  overflow-y: auto;
+  max-height: 91vh;
+}
+
+.rooms-heading {
+  font-size: 26px;
+  text-align: center;
+}
+
+.room-card {
+  display: flex;
+}
+
+.room-card-img {
+  width: 45%;
+  border-radius: 10px;
+}
+
+.room-text-content {
+  width: 100%;
+  margin: 10px 0 0 17px;
+  padding: 0 15px;
+}
+
+.cost-text {
+  margin-bottom: 30px;
+}
+
+.cost-span {
+  font-size: 28px;
+}
+
+.room-info {
+  color: #000000a2;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.extra-features {
+  display: flex;
+  justify-content: space-between;
+}
+
+.map-container {
+  background-color: rgb(36, 91, 36);
+  width: 45%;
+}
+
+/* Account Page */
+.account-heading {
+  text-align: center;
+  margin-top: 8vh;
+}
+
+.spending-container {
+  width: 80%;
+  margin: 8vh auto 0;
+  text-align: center;
+}
+
+.card {
+  padding: 12px;
+}
+
+.bookings-section {
+  width: 80%;
+  margin: 8vh auto 0;
+}
+
+.btn-container {
+  width: 40%;
+  margin: 8vh auto;
+  display: flex;
+  justify-content: space-around;
+}
+
+.btn-container button {
+  width: 125px;
+  padding: 10px 0;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  background-color: #cecece;
+  transition: all ease-in-out 0.3s;
+}
+
+.btn-container button:hover {
+  background: rgb(0, 81, 255);
+  color: #fff;
+}
+
+.active-bookings-btn {
+  background-color: rgb(0, 81, 255) !important;
+  color: #fff;
+}
+
+.bookings-card-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.bookings-card {
+  border: 1px solid gray;
+  padding: 12px;
+  width: 300px;
+  border-radius: 8px;
+}
+
+/* Hide */
+.hidden {
+  display: none;
+}
+
+/* Active Link */
+.active-link {
+  border-bottom: 3px solid rgb(0, 81, 255);
 }

@@ -1,16 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Overlook Hotel</title>
-</head>
-<body>
-  <img src="./images/turing-logo.png" alt="turing logo">
-  
-  <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
-  <script src="bundle.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <title>Overlook Hotel</title>
+  </head>
+  <body>
+    <!-- Nav Bar -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a href="#" class="overlook-logo">Overlook Hotel</a>
 
-</body>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navmenu"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navmenu">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a href="#home" class="home-link navbar-link">Home</a>
+            </li>
+            <li class="nav-item">
+              <a href="#rooms" class="rooms-link navbar-link">Rooms</a>
+            </li>
+            <li class="nav-item">
+              <a href="#account" class="account-link navbar-link">Account</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main class="home-page">
+      <!-- Hero Section -->
+      <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button
+            type="button"
+            data-bs-target="#hero-carousel"
+            data-bs-slide-to="0"
+            class="active"
+            aria-current="true"
+            aria-label="Slide 1"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#hero-carousel"
+            data-bs-slide-to="1"
+            aria-label="Slide 2"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#hero-carousel"
+            data-bs-slide-to="2"
+            aria-label="Slide 3"
+          ></button>
+        </div>
+
+        <div class="carousel-inner">
+          <div class="carousel-item active c-item">
+            <img
+              src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+              class="d-block w-100 c-img"
+              alt="Slide 1"
+            />
+            <div class="carousel-caption top-0 mt-4">
+              <p class="mt-5 fs-3 text-uppercase">
+                A place to discover your new adventure
+              </p>
+              <h1 class="display-1 fw-bolder text-capitalize">
+                Welcome To Overlook Hotel
+              </h1>
+              <a href="#book-section">
+                <button class="btn btn-primary px-4 py-2 fs-5 mt-5">
+                  Book Now
+                </button></a
+              >
+            </div>
+          </div>
+          <div class="carousel-item c-item">
+            <img
+              src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+              class="d-block w-100 c-img"
+              alt="Slide 2"
+            />
+            <div class="carousel-caption top-0 mt-4">
+              <p class="text-uppercase fs-3 mt-5">The season has arrived</p>
+              <p class="display-1 fw-bolder text-capitalize">
+                Welcome To Overlook Hotel
+              </p>
+              <button
+                class="btn btn-primary px-4 py-2 fs-5 mt-5"
+                data-bs-toggle="modal"
+                data-bs-target="#booking-modal"
+              >
+                Book a tour
+              </button>
+            </div>
+          </div>
+          <div class="carousel-item c-item">
+            <img
+              src="https://images.unsplash.com/photo-1561501900-3701fa6a0864?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+              class="d-block w-100 c-img"
+              alt="Slide 3"
+            />
+            <div class="carousel-caption top-0 mt-4">
+              <p class="text-uppercase fs-3 mt-5">New places to explore</p>
+              <p class="display-1 fw-bolder text-capitalize">
+                Welcome To Overlook Hotel
+              </p>
+              <button
+                class="btn btn-primary px-4 py-2 fs-5 mt-5"
+                data-bs-toggle="modal"
+                data-bs-target="#booking-modal"
+              >
+                Book a tour
+              </button>
+            </div>
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#hero-carousel"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#hero-carousel"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </main>
+
+    <!-- Rooms Page -->
+    <section class="rooms-page hidden">
+      <div class="rooms-sub-container">
+        <h2 class="rooms-heading">All Available Rooms</h2>
+        <hr />
+        <div class="room-card-container"></div>
+      </div>
+      <div class="map-container"></div>
+    </section>
+
+    <!-- Account Page -->
+    <section class="account-page hidden">
+      <h2 class="account-heading"></h2>
+      <!-- Update when we have all years and when using npm chart.js -->
+      <!-- <div class="spending-container">
+        <div class="card">
+          <p class="spending-text"><span>2019:</span> $1000</p>
+          <p class="spending-text"><span>2019:</span> $1000</p>
+          <p class="spending-text"><span>2019:</span> $1000</p>
+        </div>
+      </div> -->
+
+      <div class="spending-container"></div>
+
+      <section class="bookings-section">
+        <div class="btn-container">
+          <button class="all-bookings-btn">All Bookings</button>
+          <button class="upcoming-bookings-btn">Upcoming</button>
+          <button class="past-bookings-btn">Past</button>
+        </div>
+        <div class="bookings-card-container"></div>
+      </section>
+    </section>
+
+    <script src="bundle.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

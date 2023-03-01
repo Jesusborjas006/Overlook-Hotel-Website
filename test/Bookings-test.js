@@ -8,7 +8,6 @@ describe("Booking", () => {
   let bookingData;
 
   beforeEach(() => {
-    // This gets the first user's booking
     bookingData = bookingsData[4];
     booking = new Booking(bookingData);
   });

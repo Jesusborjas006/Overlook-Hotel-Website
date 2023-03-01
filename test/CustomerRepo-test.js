@@ -9,7 +9,7 @@ describe("CustomerRepo", () => {
 
   beforeEach(() => {
     customerData = customersTestData;
-    customerRepo = new CustomerRepo(customerData)
+    customerRepo = new CustomerRepo(customerData);
   });
 
   it("Should be a function", () => {
@@ -17,8 +17,8 @@ describe("CustomerRepo", () => {
   });
 
   it("Should be an instance of Customer Repo", () => {
-    expect(customerRepo).to.be.an.instanceOf(CustomerRepo)
-  })
+    expect(customerRepo).to.be.an.instanceOf(CustomerRepo);
+  });
 
   it("Should have a property of customers", () => {
     expect(customerRepo.customers).to.deep.equal(customerData);
