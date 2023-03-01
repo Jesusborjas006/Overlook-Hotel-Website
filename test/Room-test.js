@@ -5,11 +5,11 @@ import roomsData from "../src/data/roomTestData";
 
 describe("Room", () => {
   let room;
-  let allRooms;
+  let roomData;
 
   beforeEach(() => {
-    allRooms = roomsData[11];
-    room = new Room(allRooms);
+    roomData = roomsData[11];
+    room = new Room(roomData);
   });
 
   it("Should be a function", () => {
@@ -43,4 +43,8 @@ describe("Room", () => {
   it("Should have a cost per night", () => {
     expect(room.costPerNight).to.equal(172.09);
   });
+
+  // it("Should get all rooms", () => {
+  //   console.log(room)
+  // })
 });
