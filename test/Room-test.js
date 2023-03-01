@@ -44,7 +44,21 @@ describe("Room", () => {
     expect(room.costPerNight).to.equal(172.09);
   });
 
-  // it("Should get all rooms", () => {
-  //   console.log(room)
-  // })
+  it("Should capitalize the first letter of each word", () => {
+    expect(room.capitalizeRoomType()).to.equal("Single Room");
+  });
+
+  it("Should capitalize the first letter for bed size", () => {
+    expect(room.capitalizeBedSize()).to.equal("Twin");
+  });
+
+  it("Should round the cost", () => {
+    expect(room.getRoundedCost()).to.equal(172);
+  });
+
+  it("Should return a string depending if it has a bidet or not", () => {
+    let room2 = new Room(roomsData[0]);
+    expect(room.getBidetInfo()).to.be.equal("Bidet Not Included");
+    expect(room2.getBidetInfo()).to.be.equal("Bidet Included");
+  });
 });

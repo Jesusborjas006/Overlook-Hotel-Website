@@ -16,11 +16,11 @@ describe("RoomRepo", () => {
     expect(RoomRepo).to.be.a("function");
   });
 
-  it("Should be an instance of RoomRepo", () => [
-    expect(rooms).to.be.an.instanceOf(RoomRepo),
-  ]);
+  it("Should be an instance of RoomRepo", () => {
+    expect(rooms).to.be.an.instanceOf(RoomRepo);
+  });
 
   it("Should have store all rooms in a property", () => {
-    expect(rooms.rooms).to.deep.equal(allRoomsData)
-  })
+    expect(rooms.rooms).to.deep.equal(allRoomsData);
+  });
 });

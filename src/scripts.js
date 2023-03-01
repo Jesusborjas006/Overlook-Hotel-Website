@@ -1,33 +1,42 @@
+/* eslint-disable max-len */
 import Customer from "./classes/Customer";
 import CustomerRepo from "./classes/CustomerRepo";
+import Room from "./classes/Room";
+import RoomRepo from "./classes/RoomRepo";
 import "./css/styles.css";
 import bookingsData from "./data/bookingTestData";
 import customersTestData from "./data/customerTestData";
+import roomsData from "./data/roomTestData";
 
 // Query Selectors
 const homePage = document.querySelector(".home-page");
-const roomsPage = document.querySelector(".rooms-page")
+const roomsPage = document.querySelector(".rooms-page");
 const accountPage = document.querySelector(".account-page");
 
-const accountLink = document.querySelector(".account-link");
 const homeLink = document.querySelector(".home-link");
 const roomsLink = document.querySelector(".rooms-link");
+const accountLink = document.querySelector(".account-link");
 
 const bookingCardContainer = document.querySelector(".bookings-card-container");
 const customerNameHeading = document.querySelector(".account-heading");
 
-// Global Variables
-let customer = new Customer(customersTestData[0]);
-console.log(customer);
+const roomCardContainer = document.querySelector(".room-card-container");
 
-let customerRepo = new CustomerRepo(customersTestData);
-// Gets the first customer
-console.log(customerRepo.customers[0]);
+// Global Variables
+
+// Customer Data
+let customer = new Customer(customersTestData[0]);
+
+// All Rooms Data !!!!!!!!!!!
+let allRooms = roomsData.map((room) => new Room(room));
+let roomsRepo = new RoomRepo(allRooms);
+console.log(roomsRepo);
 
 // Event Listeners
 
 displayBookingCards();
 displayCustomersName();
+displayRoomCards();
 window.addEventListener("load", () => {});
 
 homeLink.addEventListener("click", () => {
@@ -35,14 +44,37 @@ homeLink.addEventListener("click", () => {
 });
 
 roomsLink.addEventListener("click", () => {
-  displayRoomsPage()
-})
+  displayRoomsPage();
+});
 
 accountLink.addEventListener("click", () => {
   displayAccountPage();
 });
 
 // Functions
+
+function displayRoomCards() {
+  roomCardContainer.innerHTML = "";
+
+  allRooms.forEach((room) => {
+    roomCardContainer.innerHTML += `
+    <div class="room-card">
+      <img class="room-card-img" src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" alt="Room Image">
+    <div class="room-text-content">
+      <p class="cost-text"><span class="cost-span">$${room.getRoundedCost()}</span>/night</p>
+      <h5 class="room-type-heading">${room.capitalizeRoomType()}</h5>
+      <p class="room-info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, sed?</p>
+    <div class="extra-features">
+      <p>${room.capitalizeBedSize()} Size</p>
+      <p>${room.numBeds} Bed/s</p>
+      <p>${room.getBidetInfo()}</p>
+    </div>
+    </div>
+    </div>
+    <hr>
+  `;
+  });
+}
 
 function displayCustomersName() {
   customerNameHeading.innerText = `Welcome Back ${customer.getFirstName()}!`;
@@ -62,8 +94,6 @@ function displayBookingCards() {
         <p><span>roomNumber:</span> ${book.roomNumber}</p>
       </div`;
   });
-
-  console.log(customerBookings);
 }
 
 function displayHomePage() {
@@ -79,7 +109,7 @@ function displayRoomsPage() {
   roomsLink.classList.add("active-link");
   accountPage.classList.add("hidden");
   homePage.classList.add("hidden");
-  roomsPage.classList.remove("hidden")
+  roomsPage.classList.remove("hidden");
   accountLink.classList.remove("active-link");
   homeLink.classList.remove("active-link");
 }

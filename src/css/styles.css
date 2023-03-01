@@ -43,6 +43,7 @@ span {
 /* Rooms Page */
 .rooms-page {
   height: 91vh;
+  max-height: 91vh;
   display: flex;
   justify-content: space-between;
 }
@@ -50,6 +51,8 @@ span {
 .rooms-sub-container {
   width: 55%;
   padding: 28px;
+  overflow-y: auto;
+  max-height: 91vh;
 }
 
 .rooms-heading {
@@ -64,6 +67,7 @@ span {
 .room-card-img {
   width: 45%;
   border-radius: 10px;
+
 }
 
 .room-text-content {
@@ -92,7 +96,7 @@ span {
 }
 
 .map-container {
-  background-color: green;
+  background-color: rgb(36, 91, 36);
   width: 45%;
 }
 
