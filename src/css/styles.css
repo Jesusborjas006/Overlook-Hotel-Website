@@ -159,6 +159,81 @@ span {
   border-radius: 8px;
 }
 
+/* Login Form Section */
+.login-page {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
+
+.img-side {
+  width: 60vw;
+  background: linear-gradient(rgba(0, 174, 255, 0.753), rgba(0, 174, 255, 0.72)),
+    url("https://images.unsplash.com/photo-1576203866193-8b858e07d4bf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80")
+      no-repeat center center/cover;
+  color: #fff;
+  padding: 10px;
+}
+
+.logo,
+.login-main-header,
+.login-text {
+  margin: 40px 0 0 40px;
+}
+
+.login-main-header {
+  margin-top: 25%;
+  font-size: 3.5em;
+}
+
+.login-text {
+  width: 60%;
+  padding: 8px;
+  font-size: 18px;
+}
+
+.form-side {
+  width: 40vw;
+  text-align: center;
+}
+
+.form-side .form-header {
+  margin: 40% 0 8%;
+  font-size: 2.3rem;
+}
+
+.form-side .form {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.form input {
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
+.form-side .form-btn {
+  background: #0275d8;
+  color: #fff;
+  font-size: 24px;
+  padding: 6px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+.form-error-message {
+  text-align: start;
+  padding: 5px 10px;
+  background: #ff8888;
+  color: rgb(78, 25, 25);
+  border-radius: 2px;
+}
+
 /* Hide */
 .hidden {
   display: none;
