@@ -1,12 +1,10 @@
 /* eslint-disable max-len */
+import storedPromises from "./api-calls";
 import Customer from "./classes/Customer";
 import CustomerRepo from "./classes/CustomerRepo";
 import Room from "./classes/Room";
-import RoomRepo from "./classes/RoomRepo";
+import Booking from "./classes/Booking";
 import "./css/styles.css";
-import bookingsData from "./data/bookingTestData";
-import customersTestData from "./data/customerTestData";
-import roomsData from "./data/roomTestData";
 
 // Query Selectors
 const homePage = document.querySelector(".home-page");
@@ -35,22 +33,14 @@ const formErrorMessage = document.querySelector(".form-error-message");
 const loginForm = document.querySelector(".form");
 
 // Global Variables
-
-// Customer Data
-let customer = new Customer(customersTestData[0]);
-
-// All Rooms Data !!!!!!!!!!!
-let allRooms = roomsData.map((room) => new Room(room));
-let roomsRepo = new RoomRepo(allRooms);
-console.log(roomsRepo);
+let allCustomers;
+let allRooms;
+let allBookings;
+let customerRepository;
 
 // Event Listeners
-
 window.addEventListener("load", () => {
-  displayAllCustomerBookings();
-  displayCustomersName();
-  displayTotalCost();
-  displayRoomCards();
+  resolvePromises();
 });
 
 homeLink.addEventListener("click", () => {
@@ -77,7 +67,6 @@ pastBookingsBtn.addEventListener("click", () => {
   displayPastCustomerBookings();
 });
 
-// Form Validation (Username & Password)
 loginForm.addEventListener("submit", (e) => {
   e.preventDefault();
   if (
@@ -95,6 +84,18 @@ loginForm.addEventListener("submit", (e) => {
 });
 
 // Functions
+function resolvePromises() {
+  storedPromises().then((data) => {
+    allCustomers = data[0].customers.map((customer) => new Customer(customer));
+    allRooms = data[1].rooms.map((room) => new Room(room));
+    allBookings = data[2].bookings.map((booking) => new Booking(booking));
+    customerRepository = new CustomerRepo(allCustomers);
+    displayAllCustomerBookings();
+    displayCustomersName();
+    displayTotalCost();
+    displayRoomCards();
+  });
+}
 
 function displayRoomCards() {
   roomCardContainer.innerHTML = "";
@@ -108,7 +109,7 @@ function displayRoomCards() {
       <h5 class="room-type-heading">${room.capitalizeRoomType()}</h5>
       <p class="room-info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, sed?</p>
     <div class="extra-features">
-      <p>${room.capitalizeBedSize()} Size</p>
+      <p>${room.capitalizeBedSize()} Size Bed</p>
       <p>${room.numBeds} Bed/s</p>
       <p>${room.getBidetInfo()}</p>
     </div>
@@ -120,17 +121,16 @@ function displayRoomCards() {
 }
 
 function displayCustomersName() {
-  customerNameHeading.innerText = `Welcome Back ${customer.getFirstName()}!`;
+  customerNameHeading.innerText = `Welcome Back ${allCustomers[0].getFirstName()}!`;
 }
 
 function displayAllCustomerBookings() {
   allBookingsBtn.classList.add("active-bookings-btn");
   upcomingBookingsBtn.classList.remove("active-bookings-btn");
   pastBookingsBtn.classList.remove("active-bookings-btn");
-
   bookingCardContainer.innerHTML = "";
 
-  let customerAllBookings = customer.getCustomerBookings(bookingsData);
+  let customerAllBookings = allCustomers[0].getCustomerBookings(allBookings);
 
   customerAllBookings.forEach((book) => {
     bookingCardContainer.innerHTML += `
@@ -150,7 +150,8 @@ function displayUpcomingCustomerBookings() {
 
   bookingCardContainer.innerHTML = "";
 
-  let customerUpcomingBookings = customer.getUpcomingBookings(bookingsData);
+  let customerUpcomingBookings =
+    allCustomers[0].getUpcomingBookings(allBookings);
   customerUpcomingBookings.forEach((book) => {
     bookingCardContainer.innerHTML += `
       <div class="bookings-card">
@@ -169,7 +170,7 @@ function displayPastCustomerBookings() {
 
   bookingCardContainer.innerHTML = "";
 
-  let customerPastBookings = customer.getPastBookings(bookingsData);
+  let customerPastBookings = allCustomers[0].getPastBookings(allBookings);
   customerPastBookings.forEach((book) => {
     bookingCardContainer.innerHTML += `
       <div class="bookings-card">
@@ -209,8 +210,8 @@ function displayAccountPage() {
 }
 
 function getCustomersTotal() {
-  let customerBookings = customer
-    .getCustomerBookings(bookingsData)
+  let customerBookings = allCustomers[0]
+    .getCustomerBookings(allBookings)
     .map((room) => {
       return room.roomNumber;
     });
@@ -223,8 +224,7 @@ function getCustomersTotal() {
     return (acc += current.costPerNight);
   }, 0);
 
-  console.log(totalCost);
-  return totalCost;
+  return Number(totalCost.toFixed(2));
 }
 
 function displayTotalCost() {
