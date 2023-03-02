@@ -46,11 +46,12 @@ console.log(roomsRepo);
 
 // Event Listeners
 
-displayAllCustomerBookings();
-displayCustomersName();
-displayTotalCost();
-displayRoomCards();
-window.addEventListener("load", () => {});
+window.addEventListener("load", () => {
+  displayAllCustomerBookings();
+  displayCustomersName();
+  displayTotalCost();
+  displayRoomCards();
+});
 
 homeLink.addEventListener("click", () => {
   displayHomePage();
