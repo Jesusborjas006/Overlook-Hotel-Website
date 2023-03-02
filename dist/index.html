@@ -14,7 +14,7 @@
   </head>
   <body>
     <!-- Nav Bar -->
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg hidden">
       <div class="container">
         <a href="#" class="overlook-logo">Overlook Hotel</a>
 
@@ -43,7 +43,7 @@
       </div>
     </nav>
 
-    <main class="home-page">
+    <main class="home-page hidden">
       <!-- Hero Section -->
       <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
@@ -184,6 +184,48 @@
         </div>
         <div class="bookings-card-container"></div>
       </section>
+    </section>
+
+    <!-- Login Form Section -->
+    <section class="login-page">
+      <div class="img-side">
+        <h2 class="logo">Overlook Hotel</h2>
+        <h1 class="login-main-header">
+          Great Rooms With Great<br />
+          Prices!
+        </h1>
+        <p class="login-text">
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum
+          ducimus beatae rem quos nemo praesentium voluptates esse assumenda
+          placeat similique, rerum culpa porro minima incidunt.
+        </p>
+      </div>
+      <div class="form-side">
+        <h2 class="form-header">Login To Your Account</h2>
+        <form class="form" action="#">
+          <input
+            type="text"
+            name="username"
+            id="username"
+            placeholder="Username"
+            minlength="5"
+            maxlength="10"
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+            minlength="5"
+            required
+          />
+          <div class="form-error-message hidden">
+            Incorrect email or password.
+          </div>
+          <button class="form-btn">Login</button>
+        </form>
+      </div>
     </section>
 
     <script src="bundle.js"></script>
