@@ -12,6 +12,8 @@ import roomsData from "./data/roomTestData";
 const homePage = document.querySelector(".home-page");
 const roomsPage = document.querySelector(".rooms-page");
 const accountPage = document.querySelector(".account-page");
+const loginPage = document.querySelector(".login-page");
+const navBar = document.querySelector(".navbar");
 
 const homeLink = document.querySelector(".home-link");
 const roomsLink = document.querySelector(".rooms-link");
@@ -27,6 +29,11 @@ const allBookingsBtn = document.querySelector(".all-bookings-btn");
 const upcomingBookingsBtn = document.querySelector(".upcoming-bookings-btn");
 const pastBookingsBtn = document.querySelector(".past-bookings-btn");
 
+const userNameInput = document.querySelector("#username");
+const passwordInput = document.querySelector("#password");
+const formErrorMessage = document.querySelector(".form-error-message");
+const loginForm = document.querySelector(".form");
+
 // Global Variables
 
 // Customer Data
@@ -41,7 +48,7 @@ console.log(roomsRepo);
 
 displayAllCustomerBookings();
 displayCustomersName();
-displayTotalCost()
+displayTotalCost();
 displayRoomCards();
 window.addEventListener("load", () => {});
 
@@ -67,6 +74,23 @@ upcomingBookingsBtn.addEventListener("click", () => {
 
 pastBookingsBtn.addEventListener("click", () => {
   displayPastCustomerBookings();
+});
+
+// Form Validation (Username & Password)
+loginForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  if (
+    userNameInput.value === "customer1" &&
+    passwordInput.value === "overlook2021"
+  ) {
+    loginPage.classList.add("hidden");
+    homePage.classList.remove("hidden");
+    navBar.classList.remove("hidden");
+  } else {
+    formErrorMessage.classList.remove("hidden");
+    userNameInput.value = "";
+    passwordInput.value = "";
+  }
 });
 
 // Functions
@@ -209,4 +233,3 @@ function displayTotalCost() {
     </div>
   `;
 }
-
