@@ -33,7 +33,7 @@ const formErrorMessage = document.querySelector(".form-error-message");
 const loginForm = document.querySelector(".form");
 
 const bookRoomForm = document.querySelector(".book-room-form");
-// const dateInput = document.querySelector(".date-input");
+const dateInput = document.querySelector(".date-input");
 const roomTypeInput = document.querySelector(".room-type-input");
 
 // Global Variables
@@ -89,7 +89,8 @@ loginForm.addEventListener("submit", (e) => {
 
 bookRoomForm.addEventListener("submit", (e) => {
   e.preventDefault(e);
-  filterRoomByType();
+  filterByDateAvailable();
+  // filterRoomByType();
 });
 
 // Functions
@@ -245,17 +246,33 @@ function displayTotalCost() {
   `;
 }
 
-// function getAvailableRooms() {
-//   let customersBookDate = dateInput.value;
-//   console.log(customersBookDate)
+function filterByDateAvailable() {
+  let customersDate = dateInput.value
+  let changeToSlash = customersDate.replaceAll("-", "/")
+  console.log(changeToSlash)
 
-//   const availableRooms = allBookings.filter(room => {
-//     return room.date === dateInput.value
-//   })
-//   console.log(allBookings)
-//   console.log("available rooms!!!", availableRooms)
-//   return availableRooms
-// }
+  const bookedRoomsNumber = allBookings
+    .filter((room) => {
+      return room.date === changeToSlash;
+    })
+    .map((room) => room.roomNumber);
+
+  const bookedRooms = [];
+  const notBookedYet = [];
+  const getAvailableRooms = allRooms.forEach((room) => {
+    if (bookedRoomsNumber.includes(room.number)) {
+      bookedRooms.push(room);
+    } else {
+      notBookedYet.push(room);
+    }
+  });
+
+  roomCardContainer.innerHTML = "";
+
+  console.log("Booked Rooms:", bookedRooms);
+  console.log("Not Booked Yet:", notBookedYet);
+  return notBookedYet;
+}
 
 function filterRoomByType() {
   console.log(roomTypeInput.value);
@@ -287,4 +304,3 @@ function filterRoomByType() {
   `;
   });
 }
-
