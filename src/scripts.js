@@ -35,7 +35,7 @@ const loginForm = document.querySelector(".form");
 const bookRoomForm = document.querySelector(".book-room-form");
 const dateInput = document.querySelector(".date-input");
 const roomTypeInput = document.querySelector(".room-type-input");
-const roomsHeading = document.querySelector(".rooms-heading")
+const roomResults = document.querySelector(".room-results");
 
 // Global Variables
 let allCustomers;
@@ -90,8 +90,11 @@ loginForm.addEventListener("submit", (e) => {
 
 bookRoomForm.addEventListener("submit", (e) => {
   e.preventDefault(e);
+
+  // Need a function that filters through both
+  // Only the last function being invoked shows the num of results
   filterByDateAvailable();
-  // filterRoomByType();
+  filterRoomByType();
 });
 
 // Functions
@@ -110,13 +113,16 @@ function resolvePromises() {
 
 function displayRoomCards() {
   roomCardContainer.innerHTML = "";
-
+  
   allRooms.forEach((room) => {
     roomCardContainer.innerHTML += `
     <div class="room-card">
       <img class="room-card-img" src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" alt="Room Image">
     <div class="room-text-content">
+      <div class="card-cost-container">
       <p class="cost-text"><span class="cost-span">$${room.getRoundedCost()}</span>/night</p>
+      <p class="room-number">Room: ${room.number}</p>
+      </div>
       <h5 class="room-type-heading">${room.capitalizeRoomType()}</h5>
       <p class="room-info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, sed?</p>
     <div class="extra-features">
@@ -247,8 +253,8 @@ function displayTotalCost() {
 }
 
 function filterByDateAvailable() {
-  let customersDate = dateInput.value
-  let changeToSlash = customersDate.replaceAll("-", "/")
+  let customersDate = dateInput.value;
+  let changeToSlash = customersDate.replaceAll("-", "/");
 
   const bookedRoomsNumber = allBookings
     .filter((room) => {
@@ -264,9 +270,10 @@ function filterByDateAvailable() {
     } else {
       notBookedYet.push(room);
     }
+    return notBookedYet
   });
 
-  roomsHeading.innerText = `${notBookedYet.length}/25 Rooms Available`
+  roomResults.innerText = `${notBookedYet.length} Results`;
   roomCardContainer.innerHTML = "";
 
   notBookedYet.forEach((room) => {
@@ -274,7 +281,10 @@ function filterByDateAvailable() {
     <div class="room-card">
       <img class="room-card-img" src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" alt="Room Image">
     <div class="room-text-content">
+    <div class="card-cost-container">
       <p class="cost-text"><span class="cost-span">$${room.getRoundedCost()}</span>/night</p>
+      <p class="room-number">Room: ${room.number}</p>
+    </div>
       <h5 class="room-type-heading">${room.capitalizeRoomType()}</h5>
       <p class="room-info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, sed?</p>
     <div class="extra-features">
@@ -291,14 +301,13 @@ function filterByDateAvailable() {
 }
 
 function filterRoomByType() {
-  console.log(roomTypeInput.value);
   let customersRoomType = roomTypeInput.value;
 
   let available = allRooms.filter((room) => {
     return room.roomType === customersRoomType;
   });
 
-  console.log(available);
+  roomResults.innerText = `${available.length} Results`;
   roomCardContainer.innerHTML = "";
 
   available.forEach((room) => {
@@ -306,7 +315,10 @@ function filterRoomByType() {
     <div class="room-card">
       <img class="room-card-img" src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" alt="Room Image">
     <div class="room-text-content">
+    <div class="card-cost-container">
       <p class="cost-text"><span class="cost-span">$${room.getRoundedCost()}</span>/night</p>
+      <p class="room-number">Room: ${room.number}</p>
+      </div>
       <h5 class="room-type-heading">${room.capitalizeRoomType()}</h5>
       <p class="room-info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, sed?</p>
     <div class="extra-features">
@@ -319,4 +331,19 @@ function filterRoomByType() {
     <hr>
   `;
   });
+
+  return available;
 }
+
+// function filterByBoth() {
+//   let roomsByDate = filterByDateAvailable();
+//   let roomTypes = filterRoomByType();
+
+// 2023/11/09 (#9 and #14) dont exist in roomsByDate
+// 13 total single rooms
+// #9 is a single room
+// When both the date (2023/11/09) and type (single) are applied we should get 12 results
+
+//   console.log("both", roomsByDate)
+//   console.log("both", roomTypes)
+// }

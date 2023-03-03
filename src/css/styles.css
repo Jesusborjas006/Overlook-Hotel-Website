@@ -55,8 +55,28 @@ span {
   max-height: 91vh;
 }
 
-.available-rooms-number {
-  text-align: center;
+.results-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: -8px 0 -20px;
+}
+
+.room-sort-btn {
+  padding: 8px 0;
+  margin-top: 8px;
+}
+
+.showing-text {
+  font-weight: 400;
+  color: #0000008f;
+  font-size: 16px;
+  margin-bottom: -5px;
+}
+
+.room-results {
+  font-weight: 700;
+  font-size: 20px;
 }
 
 .rooms-heading {
@@ -79,12 +99,26 @@ span {
   padding: 0 15px;
 }
 
+.card-cost-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 .cost-text {
   margin-bottom: 30px;
 }
 
 .cost-span {
   font-size: 28px;
+}
+
+.room-number {
+  margin-top: 5px;
+  background-color:#0274d818;
+  color: #0088ff;
+  border-radius: 5px;
+  height: 100%;
+  padding: 0 5px;
 }
 
 .room-info {

@@ -156,17 +156,32 @@
     <section class="rooms-page">
       <div class="rooms-sub-container">
         <form class="book-room-form">
-          <input type="date" class="date-input">
-          <!-- <label for="room-type">Choose a room type:</label> -->
-          <!-- <select class="room-type-input">
+          <input type="date" class="date-input" />
+          <select class="room-type-input">
+            <option value="sort by" disabled selected>Room Type</option>
             <option value="single room">single room</option>
             <option value="residential suite">residential suite</option>
             <option value="junior suite">junior suite</option>
             <option value="suite">suite</option>
-          </select> -->
+          </select>
           <button class="book-form-btn">Submit</button>
         </form>
         <h2 class="rooms-heading">Available Rooms</h2>
+        <hr />
+        <div class="results-container">
+          <div class="results-text-container">
+            <p class="showing-text">Showing</p>
+            <p class="room-results">25 Results</p>
+          </div>
+          <select class="room-sort-btn">
+            <option value="sort by" disabled selected>Sort by</option>
+            <option value="Bed Type">Bed Type</option>
+            <option value="Bidet Included">Bidet Included</option>
+            <option value="Num Of Beds">Num Of Beds</option>
+            <option value="Price">Price</option>
+            <option value="Room Number">Room Number</option>
+          </select>
+        </div>
         <hr />
         <div class="room-card-container"></div>
       </div>
