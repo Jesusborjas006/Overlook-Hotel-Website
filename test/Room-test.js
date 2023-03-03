@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import chai from "chai";
 const expect = chai.expect;
 import Room from "../src/classes/Room";
@@ -60,5 +61,11 @@ describe("Room", () => {
     let room2 = new Room(roomsData[0]);
     expect(room.getBidetInfo()).to.be.equal("Bidet Not Included");
     expect(room2.getBidetInfo()).to.be.equal("Bidet Included");
+  });
+
+  it("Should get images for each room type", () => {
+    expect(room.getRoomImages()).to.equal(
+      "https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+    );
   });
 });

@@ -114,7 +114,7 @@ function displayRoomCards() {
   allRooms.forEach((room) => {
     roomCardContainer.innerHTML += `
     <div class="room-card">
-      <img class="room-card-img" src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" alt="Room Image">
+      <img class="room-card-img" src=${room.getRoomImages()} alt="Room Image">
     <div class="room-text-content">
       <div class="card-cost-container">
       <p class="cost-text"><span class="cost-span">$${room.getRoundedCost()}</span>/night</p>
@@ -285,7 +285,7 @@ function displayAvailavleRooms() {
   specificRoomTypeAvailable.forEach((room) => {
     roomCardContainer.innerHTML += `
     <div class="room-card">
-      <img class="room-card-img" src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" alt="Room Image">
+      <img class="room-card-img" src=${room.getRoomImages()} alt="Room Image">
     <div class="room-text-content">
     <div class="card-cost-container">
       <p class="cost-text"><span class="cost-span">$${room.getRoundedCost()}</span>/night</p>
