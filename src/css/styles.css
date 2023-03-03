@@ -62,9 +62,44 @@ span {
   margin: -8px 0 -20px;
 }
 
+.book-room-form {
+  margin-top: 10px;
+}
+
+.date-input {
+  padding: 0 5px;
+  border-radius: 10px;
+  border: 1px solid gray;
+  height: 35px;
+}
+
+.room-type-input {
+  border-radius: 10px;
+  height: 35px;
+}
+
+.book-form-btn {
+  border: none;
+  color: #fff;
+  background-color: #0060b4;
+  height: 35px;
+  padding: 0 15px;
+  border-radius: 10px;
+  transition: all ease-in-out 0.2s;
+}
+
+.book-form-btn:hover {
+  background-color: #0088ff;
+}
+
+.sort-btn-container {
+  text-align: end;
+  margin-bottom: 10px;
+}
+
 .room-sort-btn {
-  padding: 8px 0;
-  margin-top: 8px;
+  border-radius: 10px;
+  height: 35px;
 }
 
 .showing-text {
@@ -114,7 +149,7 @@ span {
 
 .room-number {
   margin-top: 5px;
-  background-color:#0274d818;
+  background-color: #0274d818;
   color: #0088ff;
   border-radius: 5px;
   height: 100%;
@@ -130,6 +165,22 @@ span {
 .extra-features {
   display: flex;
   justify-content: space-between;
+}
+
+.book-room-btn {
+  border: none;
+  color: #fff;
+  background-color: #0060b4;
+  border-radius: 5px;
+  font-size: 19px;
+  font-weight: 600;
+  padding: 2px 8px;
+  width: 100%;
+  transition: all ease-in-out 0.2s;
+}
+
+.book-room-btn:hover {
+  background-color: #0088ff;
 }
 
 .map-container {

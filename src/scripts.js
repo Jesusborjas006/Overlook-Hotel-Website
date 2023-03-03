@@ -127,6 +127,7 @@ function displayRoomCards() {
       <p>${room.numBeds} Bed/s</p>
       <p>${room.getBidetInfo()}</p>
     </div>
+    <button class="book-room-btn">Book Room</button>
     </div>
     </div>
     <hr>
@@ -297,6 +298,7 @@ function displayAvailavleRooms() {
       <p>${room.numBeds} Bed/s</p>
       <p>${room.getBidetInfo()}</p>
     </div>
+    <button class="book-room-btn">Book Room</button>
     </div>
     </div>
     <hr>
