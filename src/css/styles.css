@@ -55,8 +55,12 @@ span {
   max-height: 91vh;
 }
 
+.available-rooms-number {
+  text-align: center;
+}
+
 .rooms-heading {
-  font-size: 26px;
+  font-size: 32px;
   text-align: center;
 }
 

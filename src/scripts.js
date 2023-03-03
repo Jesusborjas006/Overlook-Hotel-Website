@@ -35,6 +35,7 @@ const loginForm = document.querySelector(".form");
 const bookRoomForm = document.querySelector(".book-room-form");
 const dateInput = document.querySelector(".date-input");
 const roomTypeInput = document.querySelector(".room-type-input");
+const roomsHeading = document.querySelector(".rooms-heading")
 
 // Global Variables
 let allCustomers;
@@ -104,7 +105,6 @@ function resolvePromises() {
     displayCustomersName();
     displayTotalCost();
     displayRoomCards();
-    // getAvailableRooms()
   });
 }
 
@@ -249,7 +249,6 @@ function displayTotalCost() {
 function filterByDateAvailable() {
   let customersDate = dateInput.value
   let changeToSlash = customersDate.replaceAll("-", "/")
-  console.log(changeToSlash)
 
   const bookedRoomsNumber = allBookings
     .filter((room) => {
@@ -267,10 +266,27 @@ function filterByDateAvailable() {
     }
   });
 
+  roomsHeading.innerText = `${notBookedYet.length}/25 Rooms Available`
   roomCardContainer.innerHTML = "";
 
-  console.log("Booked Rooms:", bookedRooms);
-  console.log("Not Booked Yet:", notBookedYet);
+  notBookedYet.forEach((room) => {
+    roomCardContainer.innerHTML += `
+    <div class="room-card">
+      <img class="room-card-img" src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" alt="Room Image">
+    <div class="room-text-content">
+      <p class="cost-text"><span class="cost-span">$${room.getRoundedCost()}</span>/night</p>
+      <h5 class="room-type-heading">${room.capitalizeRoomType()}</h5>
+      <p class="room-info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, sed?</p>
+    <div class="extra-features">
+      <p>${room.capitalizeBedSize()} Size Bed</p>
+      <p>${room.numBeds} Bed/s</p>
+      <p>${room.getBidetInfo()}</p>
+    </div>
+    </div>
+    </div>
+    <hr>
+  `;
+  });
   return notBookedYet;
 }
 
