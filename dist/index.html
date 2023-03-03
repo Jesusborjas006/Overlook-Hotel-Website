@@ -156,9 +156,10 @@
     <section class="rooms-page">
       <div class="rooms-sub-container">
         <form class="book-room-form">
-          <input type="date" class="date-input" />
-          <select class="room-type-input">
-            <option value="sort by" disabled selected>Room Type</option>
+          <input type="date" class="date-input" required/>
+          <select class="room-type-input" required>
+            <option value="" disabled selected>Select Type</option>
+            <option value="all" disabled>all</option>
             <option value="single room">single room</option>
             <option value="residential suite">residential suite</option>
             <option value="junior suite">junior suite</option>

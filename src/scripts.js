@@ -41,6 +41,7 @@ const roomResults = document.querySelector(".room-results");
 let allCustomers;
 let allRooms;
 let allBookings;
+// eslint-disable-next-line no-unused-vars
 let customerRepository;
 
 // Event Listeners
@@ -90,11 +91,7 @@ loginForm.addEventListener("submit", (e) => {
 
 bookRoomForm.addEventListener("submit", (e) => {
   e.preventDefault(e);
-
-  // Need a function that filters through both
-  // Only the last function being invoked shows the num of results
-  filterByDateAvailable();
-  filterRoomByType();
+  displayAvailavleRooms();
 });
 
 // Functions
@@ -253,17 +250,15 @@ function displayTotalCost() {
 }
 
 function filterByDateAvailable() {
-  let customersDate = dateInput.value;
-  let changeToSlash = customersDate.replaceAll("-", "/");
+  let customersDate = dateInput.value.replaceAll("-", "/");
 
-  const bookedRoomsNumber = allBookings
-    .filter((room) => {
-      return room.date === changeToSlash;
-    })
-    .map((room) => room.roomNumber);
+  const bookedRoomsNumber = allBookings.filter((room) => {
+    return room.date === customersDate;
+  }).map((room) => room.roomNumber);
 
   const bookedRooms = [];
   const notBookedYet = [];
+  // eslint-disable-next-line no-unused-vars
   const getAvailableRooms = allRooms.forEach((room) => {
     if (bookedRoomsNumber.includes(room.number)) {
       bookedRooms.push(room);
@@ -272,45 +267,21 @@ function filterByDateAvailable() {
     }
     return notBookedYet
   });
-
-  roomResults.innerText = `${notBookedYet.length} Results`;
-  roomCardContainer.innerHTML = "";
-
-  notBookedYet.forEach((room) => {
-    roomCardContainer.innerHTML += `
-    <div class="room-card">
-      <img class="room-card-img" src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" alt="Room Image">
-    <div class="room-text-content">
-    <div class="card-cost-container">
-      <p class="cost-text"><span class="cost-span">$${room.getRoundedCost()}</span>/night</p>
-      <p class="room-number">Room: ${room.number}</p>
-    </div>
-      <h5 class="room-type-heading">${room.capitalizeRoomType()}</h5>
-      <p class="room-info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, sed?</p>
-    <div class="extra-features">
-      <p>${room.capitalizeBedSize()} Size Bed</p>
-      <p>${room.numBeds} Bed/s</p>
-      <p>${room.getBidetInfo()}</p>
-    </div>
-    </div>
-    </div>
-    <hr>
-  `;
-  });
   return notBookedYet;
 }
 
-function filterRoomByType() {
+function displayAvailavleRooms() {
+  let availableRoomsByDate = filterByDateAvailable();
   let customersRoomType = roomTypeInput.value;
 
-  let available = allRooms.filter((room) => {
-    return room.roomType === customersRoomType;
+  let specificRoomTypeAvailable = availableRoomsByDate.filter((room) => {
+    return room.roomType === customersRoomType
   });
 
-  roomResults.innerText = `${available.length} Results`;
+  roomResults.innerText = `${specificRoomTypeAvailable.length} Results`;
   roomCardContainer.innerHTML = "";
 
-  available.forEach((room) => {
+  specificRoomTypeAvailable.forEach((room) => {
     roomCardContainer.innerHTML += `
     <div class="room-card">
       <img class="room-card-img" src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" alt="Room Image">
@@ -332,18 +303,5 @@ function filterRoomByType() {
   `;
   });
 
-  return available;
+  return specificRoomTypeAvailable;
 }
-
-// function filterByBoth() {
-//   let roomsByDate = filterByDateAvailable();
-//   let roomTypes = filterRoomByType();
-
-// 2023/11/09 (#9 and #14) dont exist in roomsByDate
-// 13 total single rooms
-// #9 is a single room
-// When both the date (2023/11/09) and type (single) are applied we should get 12 results
-
-//   console.log("both", roomsByDate)
-//   console.log("both", roomTypes)
-// }
