@@ -6,10 +6,10 @@ function fetchRequest(endpoint) {
 
 function storedPromises() {
   const customerDataAPI = fetchRequest("customers");
+  const bookingsDataAPI = fetchRequest("bookings");
   const roomsDataAPI = fetchRequest("rooms");
-  const bookingsDataAPI = fetchRequest("bookings")
 
-  return Promise.all([customerDataAPI, roomsDataAPI, bookingsDataAPI])
+  return Promise.all([customerDataAPI, bookingsDataAPI, roomsDataAPI]);
 }
 
 export default storedPromises;
