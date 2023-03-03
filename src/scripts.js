@@ -36,6 +36,8 @@ const bookRoomForm = document.querySelector(".book-room-form");
 const dateInput = document.querySelector(".date-input");
 const roomTypeInput = document.querySelector(".room-type-input");
 const roomResults = document.querySelector(".room-results");
+const bookRoomBtn = document.querySelector(".book-room-btn");
+const modalContainer = document.querySelector(".modal-container")
 
 // Global Variables
 let allCustomers;
@@ -91,8 +93,16 @@ loginForm.addEventListener("submit", (e) => {
 
 bookRoomForm.addEventListener("submit", (e) => {
   e.preventDefault(e);
-  displayAvailavleRooms();
+  displayAvailableRooms();
 });
+
+roomCardContainer.addEventListener("click", (e) => {
+  console.log(e.target)
+  if (e.target.className === "book-room-btn") {
+    modalContainer.classList.remove("hidden")
+    // alert(`Room ${e.target.id} has been booked`)
+  }
+})
 
 // Functions
 function resolvePromises() {
@@ -110,7 +120,7 @@ function resolvePromises() {
 
 function displayRoomCards() {
   roomCardContainer.innerHTML = "";
-  
+
   allRooms.forEach((room) => {
     roomCardContainer.innerHTML += `
     <div class="room-card">
@@ -127,7 +137,7 @@ function displayRoomCards() {
       <p>${room.numBeds} Bed/s</p>
       <p>${room.getBidetInfo()}</p>
     </div>
-    <button class="book-room-btn">Book Room</button>
+    <button class="book-room-btn" id="${room.number}">Book Room</button>
     </div>
     </div>
     <hr>
@@ -253,9 +263,11 @@ function displayTotalCost() {
 function filterByDateAvailable() {
   let customersDate = dateInput.value.replaceAll("-", "/");
 
-  const bookedRoomsNumber = allBookings.filter((room) => {
-    return room.date === customersDate;
-  }).map((room) => room.roomNumber);
+  const bookedRoomsNumber = allBookings
+    .filter((room) => {
+      return room.date === customersDate;
+    })
+    .map((room) => room.roomNumber);
 
   const bookedRooms = [];
   const notBookedYet = [];
@@ -266,17 +278,17 @@ function filterByDateAvailable() {
     } else {
       notBookedYet.push(room);
     }
-    return notBookedYet
+    return notBookedYet;
   });
   return notBookedYet;
 }
 
-function displayAvailavleRooms() {
+function displayAvailableRooms(e) {
   let availableRoomsByDate = filterByDateAvailable();
   let customersRoomType = roomTypeInput.value;
 
   let specificRoomTypeAvailable = availableRoomsByDate.filter((room) => {
-    return room.roomType === customersRoomType
+    return room.roomType === customersRoomType;
   });
 
   roomResults.innerText = `${specificRoomTypeAvailable.length} Results`;
