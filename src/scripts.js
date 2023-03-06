@@ -26,7 +26,6 @@ const roomCardContainer = document.querySelector(".room-card-container");
 const allBookingsBtn = document.querySelector(".all-bookings-btn");
 const upcomingBookingsBtn = document.querySelector(".upcoming-bookings-btn");
 const pastBookingsBtn = document.querySelector(".past-bookings-btn");
-const recentBookingsBtn = document.querySelector(".recent-bookings-btn");
 
 const userNameInput = document.querySelector("#username");
 const passwordInput = document.querySelector("#password");
@@ -37,6 +36,7 @@ const bookRoomForm = document.querySelector(".book-room-form");
 const dateInput = document.querySelector(".date-input");
 const roomTypeInput = document.querySelector(".room-type-input");
 const roomResults = document.querySelector(".room-results");
+const roomSortBtn = document.querySelector(".room-sort-btn");
 
 // Global Variables
 let allCustomers;
@@ -45,8 +45,6 @@ let allBookings;
 
 // eslint-disable-next-line no-unused-vars
 let customerRepository;
-
-
 let aNewRoom;
 
 // Event Listeners
@@ -78,10 +76,6 @@ pastBookingsBtn.addEventListener("click", () => {
   displayPastCustomerBookings();
 });
 
-recentBookingsBtn.addEventListener("click", () => {
-  displayRecentBookings();
-});
-
 loginForm.addEventListener("submit", (e) => {
   e.preventDefault();
   if (
@@ -104,13 +98,13 @@ bookRoomForm.addEventListener("submit", (e) => {
 });
 
 roomCardContainer.addEventListener("click", (e) => {
+  displayAvailableRooms();
   if (e.target.className === "book-room-btn") {
-    aNewRoom = e.target.id
+    aNewRoom = e.target.id;
     postNewBooking(aNewRoom);
-    e.target.classList.add("active-book-room-btn");
     e.target.innerText = "Room Booked";
   }
-  return aNewRoom
+  return aNewRoom;
 });
 
 // Functions
@@ -123,7 +117,8 @@ function resolvePromises() {
     displayAllCustomerBookings();
     displayCustomersName();
     displayTotalCost();
-    displayRoomCards();
+    // displayRoomCards();
+    displayAvailableRooms();
   });
 }
 
@@ -132,8 +127,8 @@ function postNewBooking(roomNumber) {
     method: "POST",
     body: JSON.stringify({
       userID: allCustomers[0].id,
-      date: getCustomersDate(),
-      roomNumber: Number(roomNumber)
+      date: dateInput.value.replaceAll("-", "/"),
+      roomNumber: Number(roomNumber),
     }),
     headers: {
       "Content-Type": "application/json",
@@ -147,40 +142,32 @@ function postNewBooking(roomNumber) {
   });
 }
 
-function getCustomersDate() {
-  if (dateInput.value === "") {
-    return "2025/03/06"
-  } else {
-    return dateInput.value.replaceAll("-", "/")
-  }
-}
+// function displayRoomCards() {
+//   roomCardContainer.innerHTML = "";
 
-function displayRoomCards() {
-  roomCardContainer.innerHTML = "";
-
-  allRooms.forEach((room) => {
-    roomCardContainer.innerHTML += `
-    <div class="room-card">
-      <img class="room-card-img" src=${room.getRoomImages()} alt="Room Image">
-    <div class="room-text-content">
-      <div class="card-cost-container">
-      <p class="cost-text"><span class="cost-span">$${room.getRoundedCost()}</span>/night</p>
-      <p class="room-number">Room: ${room.number}</p>
-      </div>
-      <h5 class="room-type-heading">${room.capitalizeRoomType()}</h5>
-      <p class="room-info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, sed?</p>
-    <div class="extra-features">
-      <p>${room.capitalizeBedSize()} Size Bed</p>
-      <p>${room.numBeds} Bed/s</p>
-      <p>${room.getBidetInfo()}</p>
-    </div>
-    <button class="book-room-btn" id="${room.number}">Book Room</button>
-    </div>
-    </div>
-    <hr>
-  `;
-  });
-}
+//   allRooms.forEach((room) => {
+//     roomCardContainer.innerHTML += `
+//     <div class="room-card">
+//       <img class="room-card-img" src=${room.getRoomImages()} alt="Room Image">
+//     <div class="room-text-content">
+//       <div class="card-cost-container">
+//       <p class="cost-text"><span class="cost-span">$${room.getRoundedCost()}</span>/night</p>
+//       <p class="room-number">Room: ${room.number}</p>
+//       </div>
+//       <h5 class="room-type-heading">${room.capitalizeRoomType()}</h5>
+//       <p class="room-info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, sed?</p>
+//     <div class="extra-features">
+//       <p>${room.capitalizeBedSize()} Size Bed</p>
+//       <p>${room.numBeds} Bed/s</p>
+//       <p>${room.getBidetInfo()}</p>
+//     </div>
+//     <button class="book-room-btn" id="${room.number}">Book Room</button>
+//     </div>
+//     </div>
+//     <hr>
+//   `;
+//   });
+// }
 
 function displayCustomersName() {
   customerNameHeading.innerText = `Welcome Back ${allCustomers[0].getFirstName()}!`;
@@ -190,7 +177,6 @@ function displayAllCustomerBookings() {
   allBookingsBtn.classList.add("active-bookings-btn");
   upcomingBookingsBtn.classList.remove("active-bookings-btn");
   pastBookingsBtn.classList.remove("active-bookings-btn");
-  recentBookingsBtn.classList.remove("active-bookings-btn");
   bookingCardContainer.innerHTML = "";
 
   let customerAllBookings = allCustomers[0].getCustomerBookings(allBookings);
@@ -210,7 +196,6 @@ function displayUpcomingCustomerBookings() {
   upcomingBookingsBtn.classList.add("active-bookings-btn");
   allBookingsBtn.classList.remove("active-bookings-btn");
   pastBookingsBtn.classList.remove("active-bookings-btn");
-  recentBookingsBtn.classList.remove("active-bookings-btn");
 
   bookingCardContainer.innerHTML = "";
 
@@ -231,7 +216,6 @@ function displayPastCustomerBookings() {
   pastBookingsBtn.classList.add("active-bookings-btn");
   allBookingsBtn.classList.remove("active-bookings-btn");
   upcomingBookingsBtn.classList.remove("active-bookings-btn");
-  recentBookingsBtn.classList.remove("active-bookings-btn");
 
   bookingCardContainer.innerHTML = "";
 
@@ -245,23 +229,6 @@ function displayPastCustomerBookings() {
         <p><span>roomNumber:</span> ${book.roomNumber}</p>
       </div`;
   });
-}
-
-function displayRecentBookings() {
-  recentBookingsBtn.classList.add("active-bookings-btn");
-  pastBookingsBtn.classList.remove("active-bookings-btn");
-  allBookingsBtn.classList.remove("active-bookings-btn");
-  upcomingBookingsBtn.classList.remove("active-bookings-btn");
-
-  bookingCardContainer.innerHTML = "";
-
-  // bookingCardContainer.innerHTML += `
-  // <div class="bookings-card">
-  //   <p><span>id:</span> ${newBookedRoom.id}</p>
-  //   <p><span>userID:</span> ${newBookedRoom.userID}</p>
-  //   <p><span>date:</span> ${newBookedRoom.date}</p>
-  //   <p><span>roomNumber:</span> ${newBookedRoom.roomNumber}</p>
-  // </div>`;
 }
 
 function displayHomePage() {
@@ -341,6 +308,7 @@ function filterByDateAvailable() {
 }
 
 function displayAvailableRooms() {
+  roomSortBtn.classList.add("hidden");
   let availableRoomsByDate = filterByDateAvailable();
   let customersRoomType = roomTypeInput.value;
 
@@ -348,6 +316,9 @@ function displayAvailableRooms() {
     return room.roomType === customersRoomType;
   });
 
+  if (specificRoomTypeAvailable.length >= 1) {
+    roomSortBtn.classList.remove("hidden");
+  }
   roomResults.innerText = `${specificRoomTypeAvailable.length} Results`;
   roomCardContainer.innerHTML = "";
 
