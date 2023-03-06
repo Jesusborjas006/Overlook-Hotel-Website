@@ -180,7 +180,15 @@ span {
 }
 
 .book-room-btn:hover {
-  background-color: #0088ff;
+  /* background-color: #0088ff; */
+}
+
+.active-book-room-btn {
+  background-color: green;
+}
+
+.active-book-room-btn:hover {
+  background-color: green;
 }
 
 .map-container {
@@ -335,56 +343,5 @@ span {
   border-bottom: 3px solid rgb(0, 81, 255);
 }
 
-/* Modal */
 
-.modal-container {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 40%;
-  z-index: 5;
-}
 
-.modal-card {
-  background-color: #f6f6f6;
-  border: 2px solid rgb(0, 0, 0);
-  text-align: center;
-  padding: 60px 60px 30px;
-  border-radius: 10px;
-}
-
-.modal-content-container {
-  /* margin-top: 10px; */
-}
-
-.check-mark {
-  background-color: rgb(18, 209, 18);
-  color: #fff;
-  display: inline-block;
-  font-size: 4rem;
-  border-radius: 50%;
-  padding: 5px 20px;
-  position: absolute;
-  top: -60px;
-  transform: translateX(-50%);
-}
-
-.modal-heading {
-  font-size: 3rem;
-}
-
-.modal-text {
-  font-size: 18px;
-  margin-top: 10px;
-}
-
-.modal-continue-btn {
-  width: 100%;
-  color: #fff;
-  background-color: rgb(18, 209, 18);
-  border: none;
-  padding: 10px;
-  font-size: 18px;
-  font-weight: 600;
-  margin-top: 20px;
-}

@@ -26,6 +26,7 @@ const roomCardContainer = document.querySelector(".room-card-container");
 const allBookingsBtn = document.querySelector(".all-bookings-btn");
 const upcomingBookingsBtn = document.querySelector(".upcoming-bookings-btn");
 const pastBookingsBtn = document.querySelector(".past-bookings-btn");
+const recentBookingsBtn = document.querySelector(".recent-bookings-btn");
 
 const userNameInput = document.querySelector("#username");
 const passwordInput = document.querySelector("#password");
@@ -36,13 +37,12 @@ const bookRoomForm = document.querySelector(".book-room-form");
 const dateInput = document.querySelector(".date-input");
 const roomTypeInput = document.querySelector(".room-type-input");
 const roomResults = document.querySelector(".room-results");
-const bookRoomBtn = document.querySelector(".book-room-btn");
-const modalContainer = document.querySelector(".modal-container")
 
 // Global Variables
 let allCustomers;
 let allRooms;
 let allBookings;
+
 // eslint-disable-next-line no-unused-vars
 let customerRepository;
 
@@ -75,6 +75,10 @@ pastBookingsBtn.addEventListener("click", () => {
   displayPastCustomerBookings();
 });
 
+recentBookingsBtn.addEventListener("click", () => {
+  displayRecentBookings();
+});
+
 loginForm.addEventListener("submit", (e) => {
   e.preventDefault();
   if (
@@ -97,24 +101,53 @@ bookRoomForm.addEventListener("submit", (e) => {
 });
 
 roomCardContainer.addEventListener("click", (e) => {
-  console.log(e.target)
+  console.log(e.target);
   if (e.target.className === "book-room-btn") {
-    modalContainer.classList.remove("hidden")
-    // alert(`Room ${e.target.id} has been booked`)
+    console.log(e.target);
+    console.log(`Room ${e.target.id} has been booked`);
+
+    postNewBooking();
+    e.target.classList.add("active-book-room-btn");
+    e.target.innerText = "Room Booked";
+    console.log(allBookings);
   }
-})
+});
 
 // Functions
 function resolvePromises() {
   storedPromises().then((data) => {
     allCustomers = data[0].customers.map((customer) => new Customer(customer));
     allBookings = data[1].bookings.map((booking) => new Booking(booking));
+    console.log(allBookings);
     allRooms = data[2].rooms.map((room) => new Room(room));
     customerRepository = new CustomerRepo(allCustomers);
     displayAllCustomerBookings();
     displayCustomersName();
     displayTotalCost();
     displayRoomCards();
+  });
+}
+
+// A new booking card is added only if the userID is equal to the allCustomers id
+// Example: allCustomers[0].id = 1 so userID in Post has be be 1 as well
+
+function postNewBooking() {
+  fetch("http://localhost:3001/api/v1/bookings", {
+    method: "POST",
+    body: JSON.stringify({
+      userID: 1,
+      date: "2022/04/30",
+      roomNumber: 15,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((response) => {
+    if (response.ok) {
+      resolvePromises();
+    } else {
+      console.log("Error in Post", response);
+    }
   });
 }
 
@@ -153,6 +186,7 @@ function displayAllCustomerBookings() {
   allBookingsBtn.classList.add("active-bookings-btn");
   upcomingBookingsBtn.classList.remove("active-bookings-btn");
   pastBookingsBtn.classList.remove("active-bookings-btn");
+  recentBookingsBtn.classList.remove("active-bookings-btn");
   bookingCardContainer.innerHTML = "";
 
   let customerAllBookings = allCustomers[0].getCustomerBookings(allBookings);
@@ -172,6 +206,7 @@ function displayUpcomingCustomerBookings() {
   upcomingBookingsBtn.classList.add("active-bookings-btn");
   allBookingsBtn.classList.remove("active-bookings-btn");
   pastBookingsBtn.classList.remove("active-bookings-btn");
+  recentBookingsBtn.classList.remove("active-bookings-btn");
 
   bookingCardContainer.innerHTML = "";
 
@@ -192,6 +227,7 @@ function displayPastCustomerBookings() {
   pastBookingsBtn.classList.add("active-bookings-btn");
   allBookingsBtn.classList.remove("active-bookings-btn");
   upcomingBookingsBtn.classList.remove("active-bookings-btn");
+  recentBookingsBtn.classList.remove("active-bookings-btn");
 
   bookingCardContainer.innerHTML = "";
 
@@ -205,6 +241,23 @@ function displayPastCustomerBookings() {
         <p><span>roomNumber:</span> ${book.roomNumber}</p>
       </div`;
   });
+}
+
+function displayRecentBookings() {
+  recentBookingsBtn.classList.add("active-bookings-btn");
+  pastBookingsBtn.classList.remove("active-bookings-btn");
+  allBookingsBtn.classList.remove("active-bookings-btn");
+  upcomingBookingsBtn.classList.remove("active-bookings-btn");
+
+  bookingCardContainer.innerHTML = "";
+
+  // bookingCardContainer.innerHTML += `
+  // <div class="bookings-card">
+  //   <p><span>id:</span> ${newBookedRoom.id}</p>
+  //   <p><span>userID:</span> ${newBookedRoom.userID}</p>
+  //   <p><span>date:</span> ${newBookedRoom.date}</p>
+  //   <p><span>roomNumber:</span> ${newBookedRoom.roomNumber}</p>
+  // </div>`;
 }
 
 function displayHomePage() {
@@ -283,7 +336,7 @@ function filterByDateAvailable() {
   return notBookedYet;
 }
 
-function displayAvailableRooms(e) {
+function displayAvailableRooms() {
   let availableRoomsByDate = filterByDateAvailable();
   let customersRoomType = roomTypeInput.value;
 
