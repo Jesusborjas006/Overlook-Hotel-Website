@@ -287,7 +287,7 @@ function getCustomersTotal() {
 function displayTotalCost() {
   spendingContainer.innerHTML = `
     <div class="card">
-      <p class="spending-text">Total Spending:<span> $${getChartTotalCost()}</span></p>
+      <p class="spending-text">Total Spending:<span> $${Number(getChartTotalCost().toFixed(2))}</span></p>
     </div>
   `;
 }
