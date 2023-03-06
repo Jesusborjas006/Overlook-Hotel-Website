@@ -46,6 +46,9 @@ let allBookings;
 // eslint-disable-next-line no-unused-vars
 let customerRepository;
 
+
+let aNewRoom;
+
 // Event Listeners
 window.addEventListener("load", () => {
   resolvePromises();
@@ -101,16 +104,13 @@ bookRoomForm.addEventListener("submit", (e) => {
 });
 
 roomCardContainer.addEventListener("click", (e) => {
-  console.log(e.target);
   if (e.target.className === "book-room-btn") {
-    console.log(e.target);
-    console.log(`Room ${e.target.id} has been booked`);
-
-    postNewBooking();
+    aNewRoom = e.target.id
+    postNewBooking(aNewRoom);
     e.target.classList.add("active-book-room-btn");
     e.target.innerText = "Room Booked";
-    console.log(allBookings);
   }
+  return aNewRoom
 });
 
 // Functions
@@ -118,7 +118,6 @@ function resolvePromises() {
   storedPromises().then((data) => {
     allCustomers = data[0].customers.map((customer) => new Customer(customer));
     allBookings = data[1].bookings.map((booking) => new Booking(booking));
-    console.log(allBookings);
     allRooms = data[2].rooms.map((room) => new Room(room));
     customerRepository = new CustomerRepo(allCustomers);
     displayAllCustomerBookings();
@@ -128,16 +127,13 @@ function resolvePromises() {
   });
 }
 
-// A new booking card is added only if the userID is equal to the allCustomers id
-// Example: allCustomers[0].id = 1 so userID in Post has be be 1 as well
-
-function postNewBooking() {
+function postNewBooking(roomNumber) {
   fetch("http://localhost:3001/api/v1/bookings", {
     method: "POST",
     body: JSON.stringify({
-      userID: 1,
-      date: "2022/04/30",
-      roomNumber: 15,
+      userID: allCustomers[0].id,
+      date: getCustomersDate(),
+      roomNumber: Number(roomNumber)
     }),
     headers: {
       "Content-Type": "application/json",
@@ -149,6 +145,14 @@ function postNewBooking() {
       console.log("Error in Post", response);
     }
   });
+}
+
+function getCustomersDate() {
+  if (dateInput.value === "") {
+    return "2025/03/06"
+  } else {
+    return dateInput.value.replaceAll("-", "/")
+  }
 }
 
 function displayRoomCards() {
@@ -363,7 +367,7 @@ function displayAvailableRooms() {
       <p>${room.numBeds} Bed/s</p>
       <p>${room.getBidetInfo()}</p>
     </div>
-    <button class="book-room-btn">Book Room</button>
+    <button class="book-room-btn" id="${room.number}">Book Room</button>
     </div>
     </div>
     <hr>
