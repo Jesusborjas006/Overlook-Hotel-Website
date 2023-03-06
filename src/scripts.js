@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 /* eslint-disable max-len */
 import storedPromises from "./api-calls";
 import Customer from "./classes/Customer";
@@ -37,13 +39,12 @@ const dateInput = document.querySelector(".date-input");
 const roomTypeInput = document.querySelector(".room-type-input");
 const roomResults = document.querySelector(".room-results");
 const roomSortBtn = document.querySelector(".room-sort-btn");
+const roomMessage = document.querySelector(".room-message")
 
 // Global Variables
 let allCustomers;
 let allRooms;
 let allBookings;
-
-// eslint-disable-next-line no-unused-vars
 let customerRepository;
 let aNewRoom;
 
@@ -142,32 +143,32 @@ function postNewBooking(roomNumber) {
   });
 }
 
-// function displayRoomCards() {
-//   roomCardContainer.innerHTML = "";
+function displayRoomCards() {
+  roomCardContainer.innerHTML = "";
 
-//   allRooms.forEach((room) => {
-//     roomCardContainer.innerHTML += `
-//     <div class="room-card">
-//       <img class="room-card-img" src=${room.getRoomImages()} alt="Room Image">
-//     <div class="room-text-content">
-//       <div class="card-cost-container">
-//       <p class="cost-text"><span class="cost-span">$${room.getRoundedCost()}</span>/night</p>
-//       <p class="room-number">Room: ${room.number}</p>
-//       </div>
-//       <h5 class="room-type-heading">${room.capitalizeRoomType()}</h5>
-//       <p class="room-info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, sed?</p>
-//     <div class="extra-features">
-//       <p>${room.capitalizeBedSize()} Size Bed</p>
-//       <p>${room.numBeds} Bed/s</p>
-//       <p>${room.getBidetInfo()}</p>
-//     </div>
-//     <button class="book-room-btn" id="${room.number}">Book Room</button>
-//     </div>
-//     </div>
-//     <hr>
-//   `;
-//   });
-// }
+  allRooms.forEach((room) => {
+    roomCardContainer.innerHTML += `
+    <div class="room-card">
+      <img class="room-card-img" src=${room.getRoomImages()} alt="Room Image">
+    <div class="room-text-content">
+      <div class="card-cost-container">
+      <p class="cost-text"><span class="cost-span">$${room.getRoundedCost()}</span>/night</p>
+      <p class="room-number">Room: ${room.number}</p>
+      </div>
+      <h5 class="room-type-heading">${room.capitalizeRoomType()}</h5>
+      <p class="room-info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, sed?</p>
+    <div class="extra-features">
+      <p>${room.capitalizeBedSize()} Size Bed</p>
+      <p>${room.numBeds} Bed/s</p>
+      <p>${room.getBidetInfo()}</p>
+    </div>
+    <button class="book-room-btn" id="${room.number}">Book Room</button>
+    </div>
+    </div>
+    <hr>
+  `;
+  });
+}
 
 function displayCustomersName() {
   customerNameHeading.innerText = `Welcome Back ${allCustomers[0].getFirstName()}!`;
@@ -295,7 +296,6 @@ function filterByDateAvailable() {
 
   const bookedRooms = [];
   const notBookedYet = [];
-  // eslint-disable-next-line no-unused-vars
   const getAvailableRooms = allRooms.forEach((room) => {
     if (bookedRoomsNumber.includes(room.number)) {
       bookedRooms.push(room);
@@ -318,7 +318,11 @@ function displayAvailableRooms() {
 
   if (specificRoomTypeAvailable.length >= 1) {
     roomSortBtn.classList.remove("hidden");
+    roomMessage.classList.add("hidden")
+  } else {
+    roomMessage.classList.remove("hidden")
   }
+  
   roomResults.innerText = `${specificRoomTypeAvailable.length} Results`;
   roomCardContainer.innerHTML = "";
 
@@ -347,3 +351,13 @@ function displayAvailableRooms() {
 
   return specificRoomTypeAvailable;
 }
+
+let map = L.map("map").setView([34.024880, -118.476914], 14);
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  maxZoom: 19,
+  attribution:
+    '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+}).addTo(map);
+
+var marker = L.marker([34.024880, -118.476914]).addTo(map);
+marker.bindPopup("<b>Overlook Hotel</b>").openPopup();
