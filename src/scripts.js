@@ -7,6 +7,7 @@ import CustomerRepo from "./classes/CustomerRepo";
 import Room from "./classes/Room";
 import Booking from "./classes/Booking";
 import "./css/styles.css";
+import Chart from "chart.js/auto";
 
 // Query Selectors
 const homePage = document.querySelector(".home-page");
@@ -39,7 +40,7 @@ const dateInput = document.querySelector(".date-input");
 const roomTypeInput = document.querySelector(".room-type-input");
 const roomResults = document.querySelector(".room-results");
 const roomSortBtn = document.querySelector(".room-sort-btn");
-const roomMessage = document.querySelector(".room-message")
+const roomMessage = document.querySelector(".room-message");
 
 // Global Variables
 let allCustomers;
@@ -120,6 +121,7 @@ function resolvePromises() {
     displayTotalCost();
     // displayRoomCards();
     displayAvailableRooms();
+    displayChart();
   });
 }
 
@@ -280,7 +282,7 @@ function getCustomersTotal() {
 function displayTotalCost() {
   spendingContainer.innerHTML = `
     <div class="card">
-      <p class="spending-text"><span>Total Spending:</span> $${getCustomersTotal()}</p>
+      <p class="spending-text">Total Spending:<span> $${getCustomersTotal()}</span></p>
     </div>
   `;
 }
@@ -318,9 +320,9 @@ function displayAvailableRooms() {
 
   if (specificRoomTypeAvailable.length >= 1) {
     roomSortBtn.classList.remove("hidden");
-    roomMessage.classList.add("hidden")
+    roomMessage.classList.add("hidden");
   } else {
-    roomMessage.classList.remove("hidden")
+    roomMessage.classList.remove("hidden");
   }
 
   roomResults.innerText = `${specificRoomTypeAvailable.length} Results`;
@@ -352,12 +354,38 @@ function displayAvailableRooms() {
   return specificRoomTypeAvailable;
 }
 
-let map = L.map("map").setView([34.024880, -118.476914], 14);
+let map = L.map("map").setView([34.02488, -118.476914], 14);
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 19,
   attribution:
     '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 }).addTo(map);
 
-var marker = L.marker([34.024880, -118.476914]).addTo(map);
+var marker = L.marker([34.02488, -118.476914]).addTo(map);
 marker.bindPopup("<b>Overlook Hotel</b>").openPopup();
+
+// Chart JS
+const ctx = document.getElementById("myChart");
+
+function displayChart() {
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: ["All Years"],
+      datasets: [
+        {
+          label: "Total Spending",
+          data: [getCustomersTotal()],
+          borderWidth: 1.5,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+}
