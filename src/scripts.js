@@ -32,11 +32,20 @@ const passwordInput = document.querySelector("#password");
 const formErrorMessage = document.querySelector(".form-error-message");
 const loginForm = document.querySelector(".form");
 
+const bookRoomForm = document.querySelector(".book-room-form");
+const dateInput = document.querySelector(".date-input");
+const roomTypeInput = document.querySelector(".room-type-input");
+const roomResults = document.querySelector(".room-results");
+const roomSortBtn = document.querySelector(".room-sort-btn");
+
 // Global Variables
 let allCustomers;
 let allRooms;
 let allBookings;
+
+// eslint-disable-next-line no-unused-vars
 let customerRepository;
+let aNewRoom;
 
 // Event Listeners
 window.addEventListener("load", () => {
@@ -83,42 +92,82 @@ loginForm.addEventListener("submit", (e) => {
   }
 });
 
+bookRoomForm.addEventListener("submit", (e) => {
+  e.preventDefault(e);
+  displayAvailableRooms();
+});
+
+roomCardContainer.addEventListener("click", (e) => {
+  displayAvailableRooms();
+  if (e.target.className === "book-room-btn") {
+    aNewRoom = e.target.id;
+    postNewBooking(aNewRoom);
+    e.target.innerText = "Room Booked";
+  }
+  return aNewRoom;
+});
+
 // Functions
 function resolvePromises() {
   storedPromises().then((data) => {
     allCustomers = data[0].customers.map((customer) => new Customer(customer));
-    allRooms = data[1].rooms.map((room) => new Room(room));
-    allBookings = data[2].bookings.map((booking) => new Booking(booking));
+    allBookings = data[1].bookings.map((booking) => new Booking(booking));
+    allRooms = data[2].rooms.map((room) => new Room(room));
     customerRepository = new CustomerRepo(allCustomers);
     displayAllCustomerBookings();
     displayCustomersName();
     displayTotalCost();
-    displayRoomCards();
+    // displayRoomCards();
+    displayAvailableRooms();
   });
 }
 
-function displayRoomCards() {
-  roomCardContainer.innerHTML = "";
-
-  allRooms.forEach((room) => {
-    roomCardContainer.innerHTML += `
-    <div class="room-card">
-      <img class="room-card-img" src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" alt="Room Image">
-    <div class="room-text-content">
-      <p class="cost-text"><span class="cost-span">$${room.getRoundedCost()}</span>/night</p>
-      <h5 class="room-type-heading">${room.capitalizeRoomType()}</h5>
-      <p class="room-info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, sed?</p>
-    <div class="extra-features">
-      <p>${room.capitalizeBedSize()} Size Bed</p>
-      <p>${room.numBeds} Bed/s</p>
-      <p>${room.getBidetInfo()}</p>
-    </div>
-    </div>
-    </div>
-    <hr>
-  `;
+function postNewBooking(roomNumber) {
+  fetch("http://localhost:3001/api/v1/bookings", {
+    method: "POST",
+    body: JSON.stringify({
+      userID: allCustomers[0].id,
+      date: dateInput.value.replaceAll("-", "/"),
+      roomNumber: Number(roomNumber),
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((response) => {
+    if (response.ok) {
+      resolvePromises();
+    } else {
+      console.log("Error in Post", response);
+    }
   });
 }
+
+// function displayRoomCards() {
+//   roomCardContainer.innerHTML = "";
+
+//   allRooms.forEach((room) => {
+//     roomCardContainer.innerHTML += `
+//     <div class="room-card">
+//       <img class="room-card-img" src=${room.getRoomImages()} alt="Room Image">
+//     <div class="room-text-content">
+//       <div class="card-cost-container">
+//       <p class="cost-text"><span class="cost-span">$${room.getRoundedCost()}</span>/night</p>
+//       <p class="room-number">Room: ${room.number}</p>
+//       </div>
+//       <h5 class="room-type-heading">${room.capitalizeRoomType()}</h5>
+//       <p class="room-info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, sed?</p>
+//     <div class="extra-features">
+//       <p>${room.capitalizeBedSize()} Size Bed</p>
+//       <p>${room.numBeds} Bed/s</p>
+//       <p>${room.getBidetInfo()}</p>
+//     </div>
+//     <button class="book-room-btn" id="${room.number}">Book Room</button>
+//     </div>
+//     </div>
+//     <hr>
+//   `;
+//   });
+// }
 
 function displayCustomersName() {
   customerNameHeading.innerText = `Welcome Back ${allCustomers[0].getFirstName()}!`;
@@ -139,7 +188,7 @@ function displayAllCustomerBookings() {
         <p><span>userID:</span> ${book.userID}</p>
         <p><span>date:</span> ${book.date}</p>
         <p><span>roomNumber:</span> ${book.roomNumber}</p>
-      </div`;
+      </div>`;
   });
 }
 
@@ -233,4 +282,68 @@ function displayTotalCost() {
       <p class="spending-text"><span>Total Spending:</span> $${getCustomersTotal()}</p>
     </div>
   `;
+}
+
+function filterByDateAvailable() {
+  let customersDate = dateInput.value.replaceAll("-", "/");
+
+  const bookedRoomsNumber = allBookings
+    .filter((room) => {
+      return room.date === customersDate;
+    })
+    .map((room) => room.roomNumber);
+
+  const bookedRooms = [];
+  const notBookedYet = [];
+  // eslint-disable-next-line no-unused-vars
+  const getAvailableRooms = allRooms.forEach((room) => {
+    if (bookedRoomsNumber.includes(room.number)) {
+      bookedRooms.push(room);
+    } else {
+      notBookedYet.push(room);
+    }
+    return notBookedYet;
+  });
+  return notBookedYet;
+}
+
+function displayAvailableRooms() {
+  roomSortBtn.classList.add("hidden");
+  let availableRoomsByDate = filterByDateAvailable();
+  let customersRoomType = roomTypeInput.value;
+
+  let specificRoomTypeAvailable = availableRoomsByDate.filter((room) => {
+    return room.roomType === customersRoomType;
+  });
+
+  if (specificRoomTypeAvailable.length >= 1) {
+    roomSortBtn.classList.remove("hidden");
+  }
+  roomResults.innerText = `${specificRoomTypeAvailable.length} Results`;
+  roomCardContainer.innerHTML = "";
+
+  specificRoomTypeAvailable.forEach((room) => {
+    roomCardContainer.innerHTML += `
+    <div class="room-card">
+      <img class="room-card-img" src=${room.getRoomImages()} alt="Room Image">
+    <div class="room-text-content">
+    <div class="card-cost-container">
+      <p class="cost-text"><span class="cost-span">$${room.getRoundedCost()}</span>/night</p>
+      <p class="room-number">Room: ${room.number}</p>
+      </div>
+      <h5 class="room-type-heading">${room.capitalizeRoomType()}</h5>
+      <p class="room-info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, sed?</p>
+    <div class="extra-features">
+      <p>${room.capitalizeBedSize()} Size Bed</p>
+      <p>${room.numBeds} Bed/s</p>
+      <p>${room.getBidetInfo()}</p>
+    </div>
+    <button class="book-room-btn" id="${room.number}">Book Room</button>
+    </div>
+    </div>
+    <hr>
+  `;
+  });
+
+  return specificRoomTypeAvailable;
 }

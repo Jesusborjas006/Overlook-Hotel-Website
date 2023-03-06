@@ -153,17 +153,44 @@
     </main>
 
     <!-- Rooms Page -->
-    <section class="rooms-page hidden">
+    <section class="rooms-page">
       <div class="rooms-sub-container">
-        <h2 class="rooms-heading">All Available Rooms</h2>
+        <h2 class="rooms-heading">Available Rooms</h2>
         <hr />
+        <div class="results-container">
+          <div class="results-text-container">
+            <p class="showing-text">Showing</p>
+            <p class="room-results">0 Results</p>
+          </div>
+          <form class="book-room-form">
+            <input type="date" class="date-input" required/>
+            <select class="room-type-input" required>
+              <option value="" disabled selected>Select Type</option>
+              <option value="all" disabled>all</option>
+              <option value="single room">single room</option>
+              <option value="residential suite">residential suite</option>
+              <option value="junior suite">junior suite</option>
+              <option value="suite">suite</option>
+            </select>
+            <button class="book-form-btn">Submit</button>
+          </form>
+        </div>
+        <hr />
+        <div class="sort-btn-container">
+          <select class="room-sort-btn">
+            <option value="sort by" disabled selected>Sort by</option>
+            <option value="Num Of Beds">Num Of Beds</option>
+            <option value="Price">Price</option>
+            <option value="Room Number">Room Number</option>
+          </select>
+        </div>
         <div class="room-card-container"></div>
       </div>
       <div class="map-container"></div>
     </section>
 
     <!-- Account Page -->
-    <section class="account-page">
+    <section class="account-page hidden">
       <h2 class="account-heading"></h2>
       <!-- Update when we have all years and when using npm chart.js -->
       <!-- <div class="spending-container">

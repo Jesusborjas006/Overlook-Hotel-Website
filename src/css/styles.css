@@ -55,8 +55,67 @@ span {
   max-height: 91vh;
 }
 
+.results-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: -8px 0 -20px;
+}
+
+.book-room-form {
+  margin-top: 10px;
+}
+
+.date-input {
+  padding: 0 5px;
+  border-radius: 10px;
+  border: 1px solid gray;
+  height: 35px;
+}
+
+.room-type-input {
+  border-radius: 10px;
+  height: 35px;
+}
+
+.book-form-btn {
+  border: none;
+  color: #fff;
+  background-color: #0060b4;
+  height: 35px;
+  padding: 0 15px;
+  border-radius: 10px;
+  transition: all ease-in-out 0.2s;
+}
+
+.book-form-btn:hover {
+  background-color: #0088ff;
+}
+
+.sort-btn-container {
+  text-align: end;
+  margin-bottom: 10px;
+}
+
+.room-sort-btn {
+  border-radius: 10px;
+  height: 35px;
+}
+
+.showing-text {
+  font-weight: 400;
+  color: #0000008f;
+  font-size: 16px;
+  margin-bottom: -5px;
+}
+
+.room-results {
+  font-weight: 700;
+  font-size: 20px;
+}
+
 .rooms-heading {
-  font-size: 26px;
+  font-size: 32px;
   text-align: center;
 }
 
@@ -75,12 +134,26 @@ span {
   padding: 0 15px;
 }
 
+.card-cost-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 .cost-text {
   margin-bottom: 30px;
 }
 
 .cost-span {
   font-size: 28px;
+}
+
+.room-number {
+  margin-top: 5px;
+  background-color: #0274d818;
+  color: #0088ff;
+  border-radius: 5px;
+  height: 100%;
+  padding: 0 5px;
 }
 
 .room-info {
@@ -92,6 +165,30 @@ span {
 .extra-features {
   display: flex;
   justify-content: space-between;
+}
+
+.book-room-btn {
+  border: none;
+  color: #fff;
+  background-color: #0060b4;
+  border-radius: 5px;
+  font-size: 19px;
+  font-weight: 600;
+  padding: 2px 8px;
+  width: 100%;
+  transition: all ease-in-out 0.2s;
+}
+
+.book-room-btn:hover {
+  /* background-color: #0088ff; */
+}
+
+.active-book-room-btn {
+  background-color: green;
+}
+
+.active-book-room-btn:hover {
+  background-color: green;
 }
 
 .map-container {
@@ -158,7 +255,7 @@ span {
   padding: 12px;
   width: 300px;
   border-radius: 8px;
-  margin: 10px 0;
+  margin: 15px 5px;
 }
 
 /* Login Form Section */
@@ -245,3 +342,6 @@ span {
 .active-link {
   border-bottom: 3px solid rgb(0, 81, 255);
 }
+
+
+
