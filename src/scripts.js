@@ -81,7 +81,7 @@ loginForm.addEventListener("submit", (e) => {
   e.preventDefault();
   if (
     userNameInput.value === "customer1" &&
-    passwordInput.value === "overlook2021"
+    passwordInput.value === "overlook2023"
   ) {
     loginPage.classList.add("hidden");
     homePage.classList.remove("hidden");
@@ -322,7 +322,7 @@ function displayAvailableRooms() {
   } else {
     roomMessage.classList.remove("hidden")
   }
-  
+
   roomResults.innerText = `${specificRoomTypeAvailable.length} Results`;
   roomCardContainer.innerHTML = "";
 
