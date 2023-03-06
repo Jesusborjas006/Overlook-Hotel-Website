@@ -351,6 +351,6 @@ span {
 
 /* Chart JS */
 .chart-container {
-  width: 60%;
+  width: 60vw;
   margin: 3vh auto 0;
 }

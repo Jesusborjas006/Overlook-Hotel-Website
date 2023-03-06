@@ -122,6 +122,11 @@ function resolvePromises() {
     // displayRoomCards();
     displayAvailableRooms();
     displayChart();
+    getFirstYear();
+    getSecondYear();
+    getThirdYear();
+    getFourthYear();
+    getChartTotalCost();
   });
 }
 
@@ -129,7 +134,7 @@ function postNewBooking(roomNumber) {
   fetch("http://localhost:3001/api/v1/bookings", {
     method: "POST",
     body: JSON.stringify({
-      userID: allCustomers[0].id,
+      userID: allCustomers[1].id,
       date: dateInput.value.replaceAll("-", "/"),
       roomNumber: Number(roomNumber),
     }),
@@ -173,7 +178,7 @@ function displayRoomCards() {
 }
 
 function displayCustomersName() {
-  customerNameHeading.innerText = `Welcome Back ${allCustomers[0].getFirstName()}!`;
+  customerNameHeading.innerText = `Welcome Back ${allCustomers[1].getFirstName()}!`;
 }
 
 function displayAllCustomerBookings() {
@@ -182,7 +187,7 @@ function displayAllCustomerBookings() {
   pastBookingsBtn.classList.remove("active-bookings-btn");
   bookingCardContainer.innerHTML = "";
 
-  let customerAllBookings = allCustomers[0].getCustomerBookings(allBookings);
+  let customerAllBookings = allCustomers[1].getCustomerBookings(allBookings);
 
   customerAllBookings.forEach((book) => {
     bookingCardContainer.innerHTML += `
@@ -203,7 +208,7 @@ function displayUpcomingCustomerBookings() {
   bookingCardContainer.innerHTML = "";
 
   let customerUpcomingBookings =
-    allCustomers[0].getUpcomingBookings(allBookings);
+    allCustomers[1].getUpcomingBookings(allBookings);
   customerUpcomingBookings.forEach((book) => {
     bookingCardContainer.innerHTML += `
       <div class="bookings-card">
@@ -222,7 +227,7 @@ function displayPastCustomerBookings() {
 
   bookingCardContainer.innerHTML = "";
 
-  let customerPastBookings = allCustomers[0].getPastBookings(allBookings);
+  let customerPastBookings = allCustomers[1].getPastBookings(allBookings);
   customerPastBookings.forEach((book) => {
     bookingCardContainer.innerHTML += `
       <div class="bookings-card">
@@ -262,7 +267,7 @@ function displayAccountPage() {
 }
 
 function getCustomersTotal() {
-  let customerBookings = allCustomers[0]
+  let customerBookings = allCustomers[1]
     .getCustomerBookings(allBookings)
     .map((room) => {
       return room.roomNumber;
@@ -282,7 +287,7 @@ function getCustomersTotal() {
 function displayTotalCost() {
   spendingContainer.innerHTML = `
     <div class="card">
-      <p class="spending-text">Total Spending:<span> $${getCustomersTotal()}</span></p>
+      <p class="spending-text">Total Spending:<span> $${getChartTotalCost()}</span></p>
     </div>
   `;
 }
@@ -354,6 +359,7 @@ function displayAvailableRooms() {
   return specificRoomTypeAvailable;
 }
 
+// LeafLit Library
 let map = L.map("map").setView([34.02488, -118.476914], 14);
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 19,
@@ -371,11 +377,16 @@ function displayChart() {
   new Chart(ctx, {
     type: "bar",
     data: {
-      labels: ["All Years"],
+      labels: ["2020", "2021", "2022", "2023"],
       datasets: [
         {
-          label: "Total Spending",
-          data: [getCustomersTotal()],
+          label: "Money Spent",
+          data: [
+            getFirstYear(),
+            getSecondYear(),
+            getThirdYear(),
+            getFourthYear(),
+          ],
           borderWidth: 1.5,
         },
       ],
@@ -388,4 +399,94 @@ function displayChart() {
       },
     },
   });
+}
+
+function getFirstYear() {
+  let year2020 = allCustomers[1]
+    .getCustomerBookings(allBookings)
+    .filter((date) => {
+      return date.date.substring(0, 4) === "2020";
+    })
+    .map((room) => {
+      return room.roomNumber;
+    });
+
+  let allRoomsBooked = allRooms.filter((room) => {
+    return year2020.includes(room.number);
+  });
+
+  let totalCost2020 = allRoomsBooked.reduce((acc, current) => {
+    return (acc += current.costPerNight);
+  }, 0);
+
+  return totalCost2020;
+}
+
+function getSecondYear() {
+  let year2021 = allCustomers[1]
+    .getCustomerBookings(allBookings)
+    .filter((date) => {
+      return date.date.substring(0, 4) === "2021";
+    })
+    .map((room) => {
+      return room.roomNumber;
+    });
+
+  let allRoomsBooked = allRooms.filter((room) => {
+    return year2021.includes(room.number);
+  });
+
+  let totalCost2021 = allRoomsBooked.reduce((acc, current) => {
+    return (acc += current.costPerNight);
+  }, 0);
+
+  return totalCost2021;
+}
+
+function getThirdYear() {
+  let year2022 = allCustomers[1]
+    .getCustomerBookings(allBookings)
+    .filter((date) => {
+      return date.date.substring(0, 4) === "2022";
+    })
+    .map((room) => {
+      return room.roomNumber;
+    });
+
+  let allRoomsBooked = allRooms.filter((room) => {
+    return year2022.includes(room.number);
+  });
+
+  let totalCost2022 = allRoomsBooked.reduce((acc, current) => {
+    return (acc += current.costPerNight);
+  }, 0);
+
+  return totalCost2022;
+}
+
+function getFourthYear() {
+  let year2023 = allCustomers[1]
+    .getCustomerBookings(allBookings)
+    .filter((date) => {
+      return date.date.substring(0, 4) === "2023";
+    })
+    .map((room) => {
+      return room.roomNumber;
+    });
+
+  let allRoomsBooked = allRooms.filter((room) => {
+    return year2023.includes(room.number);
+  });
+
+  let totalCost2023 = allRoomsBooked.reduce((acc, current) => {
+    return (acc += current.costPerNight);
+  }, 0);
+
+  return totalCost2023;
+}
+
+function getChartTotalCost() {
+  let newTotal =
+    getFirstYear() + getSecondYear() + getThirdYear() + getFourthYear();
+  return newTotal;
 }
