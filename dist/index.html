@@ -164,7 +164,7 @@
     </main>
 
     <!-- Rooms Page -->
-    <section class="rooms-page hidden">
+    <section class="rooms-page">
       <div class="rooms-sub-container">
         <h2 class="rooms-heading">Available Rooms</h2>
         <hr />
@@ -177,7 +177,7 @@
             <input type="date" class="date-input" required />
             <select class="room-type-input" required>
               <option value="" disabled selected>Select Type</option>
-              <option value="all" disabled>all</option>
+              <option value="all rooms">all rooms</option>
               <option value="single room">single room</option>
               <option value="residential suite">residential suite</option>
               <option value="junior suite">junior suite</option>
@@ -196,17 +196,15 @@
           </select>
         </div>
         <p class="room-message">Adjust form to see available rooms.</p>
-        <div class="room-card-container">
-        </div>
+        <div class="room-card-container"></div>
       </div>
       <div id="map"></div>
     </section>
 
     <!-- Account Page -->
-    <section class="account-page">
+    <section class="account-page hidden">
       <h2 class="account-heading"></h2>
-      <div class="spending-container">
-      </div>
+      <div class="spending-container"></div>
       <div class="chart-container">
         <canvas id="myChart"></canvas>
       </div>
