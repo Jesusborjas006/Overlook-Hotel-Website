@@ -25,7 +25,7 @@
   </head>
   <body>
     <!-- Nav Bar -->
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg hidden">
       <div class="container">
         <a href="#" class="overlook-logo">Overlook Hotel</a>
 
@@ -66,18 +66,6 @@
             aria-current="true"
             aria-label="Slide 1"
           ></button>
-          <button
-            type="button"
-            data-bs-target="#hero-carousel"
-            data-bs-slide-to="1"
-            aria-label="Slide 2"
-          ></button>
-          <button
-            type="button"
-            data-bs-target="#hero-carousel"
-            data-bs-slide-to="2"
-            aria-label="Slide 3"
-          ></button>
         </div>
 
         <div class="carousel-inner">
@@ -89,56 +77,16 @@
             />
             <div class="carousel-caption top-0 mt-4">
               <p class="mt-5 fs-3 text-uppercase">
-                A place to discover your new adventure
+                Lorem ipsum dolor sit amet consectetur adipisicing.
               </p>
               <h1 class="display-1 fw-bolder text-capitalize">
-                Welcome To Overlook Hotel
+                Lorem ipsum dolor sit.
               </h1>
               <a href="#book-section">
                 <button class="btn btn-primary px-4 py-2 fs-5 mt-5">
                   Book Now
                 </button></a
               >
-            </div>
-          </div>
-          <div class="carousel-item c-item">
-            <img
-              src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
-              class="d-block w-100 c-img"
-              alt="Slide 2"
-            />
-            <div class="carousel-caption top-0 mt-4">
-              <p class="text-uppercase fs-3 mt-5">The season has arrived</p>
-              <p class="display-1 fw-bolder text-capitalize">
-                Welcome To Overlook Hotel
-              </p>
-              <button
-                class="btn btn-primary px-4 py-2 fs-5 mt-5"
-                data-bs-toggle="modal"
-                data-bs-target="#booking-modal"
-              >
-                Book a tour
-              </button>
-            </div>
-          </div>
-          <div class="carousel-item c-item">
-            <img
-              src="https://images.unsplash.com/photo-1561501900-3701fa6a0864?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
-              class="d-block w-100 c-img"
-              alt="Slide 3"
-            />
-            <div class="carousel-caption top-0 mt-4">
-              <p class="text-uppercase fs-3 mt-5">New places to explore</p>
-              <p class="display-1 fw-bolder text-capitalize">
-                Welcome To Overlook Hotel
-              </p>
-              <button
-                class="btn btn-primary px-4 py-2 fs-5 mt-5"
-                data-bs-toggle="modal"
-                data-bs-target="#booking-modal"
-              >
-                Book a tour
-              </button>
             </div>
           </div>
         </div>
@@ -161,10 +109,71 @@
           <span class="visually-hidden">Next</span>
         </button>
       </div>
+
+      <section class="about-section">
+        <div class="about-container">
+          <div class="about-text-container">
+            <h3 class="about-heading">Welcome to Overlook Hotel</h3>
+            <p class="about-text">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam
+              debitis et officiis aut voluptatem, officia amet cumque illum
+              minus veniam magnam tempora eligendi. Quo, consequatur. Lorem
+              ipsum dolor sit amet conse ctetur adipisicing elit.
+            </p>
+            <p class="about-text">
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Voluptate laudantium dolor ullam et pariatur, minus voluptates
+              dolorem ad, sequi architecto labore illum ex.
+            </p>
+            <button class="read-more-btn">Read More</button>
+          </div>
+          <div class="about-img-container">
+            <img
+              class="about-img"
+              src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+              alt="room image"
+            />
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <hr />
+        <div class="footer-container">
+          <div class="footer-sub-container">
+            <h3 class="logo">Overlook</h3>
+            <p>Copyright &copy; 2023 by Jesus Borjas</p>
+          </div>
+          <div class="footer-sub-container">
+            <h3 class="footer-heading">Contact Us</h3>
+            <p>74 Glendale Rd. Los Angeles, CA 90008</p>
+            <p>(123)-456-7890</p>
+            <p>overlook@mail.com</p>
+          </div>
+          <div class="footer-sub-container">
+            <h3 class="footer-heading">Account</h3>
+            <p>Create Account</p>
+            <p>Sign in with another account</p>
+            <p>IOS app</p>
+            <p>Android app</p>
+          </div>
+          <div class="footer-sub-container">
+            <h3 class="footer-heading">Company</h3>
+            <p>About Overlook</p>
+            <p>Business</p>
+            <p>Careers</p>
+          </div>
+          <div class="footer-sub-container">
+            <h3 class="footer-heading">Resources</h3>
+            <p>Help Center</p>
+            <p>Privacy & Terms</p>
+          </div>
+        </div>
+      </footer>
     </main>
 
     <!-- Rooms Page -->
-    <section class="rooms-page">
+    <section class="rooms-page hidden">
       <div class="rooms-sub-container">
         <h2 class="rooms-heading">Available Rooms</h2>
         <hr />
@@ -219,7 +228,7 @@
     </section>
 
     <!-- Login Form Section -->
-    <section class="login-page hidden">
+    <section class="login-page">
       <div class="img-side">
         <h2 class="logo">Overlook Hotel</h2>
         <h1 class="login-main-header">

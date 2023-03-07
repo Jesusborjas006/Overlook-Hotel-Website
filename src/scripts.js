@@ -121,7 +121,6 @@ function resolvePromises() {
     displayAllCustomerBookings();
     displayCustomersName();
     displayTotalCost();
-    // displayRoomCards();
     displayAvailableRooms();
     displayChart();
     getChartTotalCost();
@@ -145,33 +144,6 @@ function postNewBooking(roomNumber) {
     } else {
       console.log("Error in Post", response);
     }
-  });
-}
-
-function displayRoomCards() {
-  roomCardContainer.innerHTML = "";
-
-  allRooms.forEach((room) => {
-    roomCardContainer.innerHTML += `
-    <div class="room-card">
-      <img class="room-card-img" src=${room.getRoomImages()} alt="Room Image">
-    <div class="room-text-content">
-      <div class="card-cost-container">
-      <p class="cost-text"><span class="cost-span">$${room.getRoundedCost()}</span>/night</p>
-      <p class="room-number">Room: ${room.number}</p>
-      </div>
-      <h5 class="room-type-heading">${room.capitalizeRoomType()}</h5>
-      <p class="room-info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, sed?</p>
-    <div class="extra-features">
-      <p>${room.capitalizeBedSize()} Size Bed</p>
-      <p>${room.numBeds} Bed/s</p>
-      <p>${room.getBidetInfo()}</p>
-    </div>
-    <button class="book-room-btn" id="${room.number}">Book Room</button>
-    </div>
-    </div>
-    <hr>
-  `;
   });
 }
 
@@ -437,23 +409,5 @@ function getChartTotalCost() {
     getSpecificYear("2021") +
     getSpecificYear("2022") +
     getSpecificYear("2023");
-  return newTotal;
+  return Number(newTotal.toFixed(2));
 }
-
-// function getCustomersTotal() {
-//   let customerBookings = allCustomers[1]
-//     .getCustomerBookings(allBookings)
-//     .map((room) => {
-//       return room.roomNumber;
-//     });
-
-//   let allRoomsBooked = allRooms.filter((room) => {
-//     return customerBookings.includes(room.number);
-//   });
-
-//   let totalCost = allRoomsBooked.reduce((acc, current) => {
-//     return (acc += current.costPerNight);
-//   }, 0);
-
-//   return Number(totalCost.toFixed(2));
-// }
