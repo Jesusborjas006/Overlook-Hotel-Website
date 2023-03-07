@@ -7,6 +7,7 @@ import CustomerRepo from "./classes/CustomerRepo";
 import Room from "./classes/Room";
 import Booking from "./classes/Booking";
 import "./css/styles.css";
+import displayMap from "./leaflet";
 import Chart from "chart.js/auto";
 
 // Query Selectors
@@ -51,6 +52,7 @@ let aNewRoom;
 
 // Event Listeners
 window.addEventListener("load", () => {
+  displayMap();
   resolvePromises();
 });
 
@@ -287,7 +289,9 @@ function getCustomersTotal() {
 function displayTotalCost() {
   spendingContainer.innerHTML = `
     <div class="card">
-      <p class="spending-text">Total Spending:<span> $${Number(getChartTotalCost().toFixed(2))}</span></p>
+      <p class="spending-text">Total Spending:<span> $${Number(
+        getChartTotalCost().toFixed(2)
+      )}</span></p>
     </div>
   `;
 }
@@ -358,17 +362,6 @@ function displayAvailableRooms() {
 
   return specificRoomTypeAvailable;
 }
-
-// LeafLit Library
-let map = L.map("map").setView([34.02488, -118.476914], 14);
-L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  maxZoom: 19,
-  attribution:
-    '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-}).addTo(map);
-
-var marker = L.marker([34.02488, -118.476914]).addTo(map);
-marker.bindPopup("<b>Overlook Hotel</b>").openPopup();
 
 // Chart JS
 const ctx = document.getElementById("myChart");
