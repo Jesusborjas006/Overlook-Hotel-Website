@@ -237,30 +237,10 @@ function displayPastCustomerBookings() {
   });
 }
 
-function getCustomersTotal() {
-  let customerBookings = allCustomers[1]
-    .getCustomerBookings(allBookings)
-    .map((room) => {
-      return room.roomNumber;
-    });
-
-  let allRoomsBooked = allRooms.filter((room) => {
-    return customerBookings.includes(room.number);
-  });
-
-  let totalCost = allRoomsBooked.reduce((acc, current) => {
-    return (acc += current.costPerNight);
-  }, 0);
-
-  return Number(totalCost.toFixed(2));
-}
-
 function displayTotalCost() {
   spendingContainer.innerHTML = `
     <div class="card">
-      <p class="spending-text">Total Spending:<span> $${Number(
-        getChartTotalCost().toFixed(2)
-      )}</span></p>
+      <p class="spending-text">Total Spending:<span> $${getChartTotalCost()}</span></p>
     </div>
   `;
 }
@@ -290,22 +270,64 @@ function filterByDateAvailable() {
 function displayAvailableRooms() {
   roomSortBtn.classList.add("hidden");
   let availableRoomsByDate = filterByDateAvailable();
-  let customersRoomType = roomTypeInput.value;
-
-  let specificRoomTypeAvailable = availableRoomsByDate.filter((room) => {
-    return room.roomType === customersRoomType;
+  let allRoomTypesAvailable = availableRoomsByDate;
+  let specificRoomLength = availableRoomsByDate.filter((room) => {
+    return room.roomType === "suite";
   });
 
-  if (specificRoomTypeAvailable.length >= 1) {
+  roomCardContainer.innerHTML = "";
+
+  if (roomTypeInput.value === "all rooms") {
+    displayAllRooms();
+  } else {
+    displaySpecificRooms();
+  }
+
+  if (allRoomTypesAvailable.length >= 1) {
     roomSortBtn.classList.remove("hidden");
     roomMessage.classList.add("hidden");
   } else {
     roomMessage.classList.remove("hidden");
+    roomSortBtn.classList.add("hidden");
   }
+}
 
+function displayAllRooms() {
+  let availableRoomsByDate = filterByDateAvailable();
+  let allRoomTypesAvailable = availableRoomsByDate;
+  roomResults.innerText = `${allRoomTypesAvailable.length} Results`;
+  allRoomTypesAvailable = availableRoomsByDate;
+  allRoomTypesAvailable.forEach((room) => {
+    roomCardContainer.innerHTML += `
+    <div class="room-card">
+      <img class="room-card-img" src=${room.getRoomImages()} alt="Room Image">
+    <div class="room-text-content">
+    <div class="card-cost-container">
+      <p class="cost-text"><span class="cost-span">$${room.getRoundedCost()}</span>/night</p>
+      <p class="room-number">Room: ${room.number}</p>
+      </div>
+      <h5 class="room-type-heading">${room.capitalizeRoomType()}</h5>
+      <p class="room-info">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, sed?</p>
+    <div class="extra-features">
+      <p>${room.capitalizeBedSize()} Size Bed</p>
+      <p>${room.numBeds} Bed/s</p>
+      <p>${room.getBidetInfo()}</p>
+    </div>
+    <button class="book-room-btn" id="${room.number}">Book Room</button>
+    </div>
+    </div>
+    <hr>
+  `;
+  });
+}
+
+function displaySpecificRooms() {
+  let availableRoomsByDate = filterByDateAvailable();
+  let customersRoomType = roomTypeInput.value;
+  let specificRoomTypeAvailable = availableRoomsByDate.filter((room) => {
+    return room.roomType === customersRoomType;
+  });
   roomResults.innerText = `${specificRoomTypeAvailable.length} Results`;
-  roomCardContainer.innerHTML = "";
-
   specificRoomTypeAvailable.forEach((room) => {
     roomCardContainer.innerHTML += `
     <div class="room-card">
@@ -328,8 +350,6 @@ function displayAvailableRooms() {
     <hr>
   `;
   });
-
-  return specificRoomTypeAvailable;
 }
 
 function displayHomePage() {
@@ -419,3 +439,21 @@ function getChartTotalCost() {
     getSpecificYear("2023");
   return newTotal;
 }
+
+// function getCustomersTotal() {
+//   let customerBookings = allCustomers[1]
+//     .getCustomerBookings(allBookings)
+//     .map((room) => {
+//       return room.roomNumber;
+//     });
+
+//   let allRoomsBooked = allRooms.filter((room) => {
+//     return customerBookings.includes(room.number);
+//   });
+
+//   let totalCost = allRoomsBooked.reduce((acc, current) => {
+//     return (acc += current.costPerNight);
+//   }, 0);
+
+//   return Number(totalCost.toFixed(2));
+// }
