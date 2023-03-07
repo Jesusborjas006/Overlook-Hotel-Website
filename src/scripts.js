@@ -124,10 +124,6 @@ function resolvePromises() {
     // displayRoomCards();
     displayAvailableRooms();
     displayChart();
-    getFirstYear();
-    getSecondYear();
-    getThirdYear();
-    getFourthYear();
     getChartTotalCost();
   });
 }
@@ -241,33 +237,6 @@ function displayPastCustomerBookings() {
   });
 }
 
-function displayHomePage() {
-  homeLink.classList.add("active-link");
-  accountPage.classList.add("hidden");
-  accountLink.classList.remove("active-link");
-  roomsLink.classList.remove("active-link");
-  homePage.classList.remove("hidden");
-  roomsPage.classList.add("hidden");
-}
-
-function displayRoomsPage() {
-  roomsLink.classList.add("active-link");
-  accountPage.classList.add("hidden");
-  homePage.classList.add("hidden");
-  roomsPage.classList.remove("hidden");
-  accountLink.classList.remove("active-link");
-  homeLink.classList.remove("active-link");
-}
-
-function displayAccountPage() {
-  accountLink.classList.add("active-link");
-  homePage.classList.add("hidden");
-  homeLink.classList.remove("active-link");
-  roomsLink.classList.remove("active-link");
-  accountPage.classList.remove("hidden");
-  roomsPage.classList.add("hidden");
-}
-
 function getCustomersTotal() {
   let customerBookings = allCustomers[1]
     .getCustomerBookings(allBookings)
@@ -363,6 +332,33 @@ function displayAvailableRooms() {
   return specificRoomTypeAvailable;
 }
 
+function displayHomePage() {
+  homeLink.classList.add("active-link");
+  accountPage.classList.add("hidden");
+  accountLink.classList.remove("active-link");
+  roomsLink.classList.remove("active-link");
+  homePage.classList.remove("hidden");
+  roomsPage.classList.add("hidden");
+}
+
+function displayRoomsPage() {
+  roomsLink.classList.add("active-link");
+  accountPage.classList.add("hidden");
+  homePage.classList.add("hidden");
+  roomsPage.classList.remove("hidden");
+  accountLink.classList.remove("active-link");
+  homeLink.classList.remove("active-link");
+}
+
+function displayAccountPage() {
+  accountLink.classList.add("active-link");
+  homePage.classList.add("hidden");
+  homeLink.classList.remove("active-link");
+  roomsLink.classList.remove("active-link");
+  accountPage.classList.remove("hidden");
+  roomsPage.classList.add("hidden");
+}
+
 // Chart JS
 const ctx = document.getElementById("myChart");
 
@@ -375,10 +371,10 @@ function displayChart() {
         {
           label: "Money Spent",
           data: [
-            getFirstYear(),
-            getSecondYear(),
-            getThirdYear(),
-            getFourthYear(),
+            getSpecificYear("2020"),
+            getSpecificYear("2021"),
+            getSpecificYear("2022"),
+            getSpecificYear("2023"),
           ],
           borderWidth: 1.5,
         },
@@ -394,92 +390,32 @@ function displayChart() {
   });
 }
 
-function getFirstYear() {
-  let year2020 = allCustomers[1]
+function getSpecificYear(year) {
+  let givenYear = allCustomers[1]
     .getCustomerBookings(allBookings)
     .filter((date) => {
-      return date.date.substring(0, 4) === "2020";
+      return date.date.substring(0, 4) === year;
     })
     .map((room) => {
       return room.roomNumber;
     });
 
   let allRoomsBooked = allRooms.filter((room) => {
-    return year2020.includes(room.number);
+    return givenYear.includes(room.number);
   });
 
-  let totalCost2020 = allRoomsBooked.reduce((acc, current) => {
+  let totalCost = allRoomsBooked.reduce((acc, current) => {
     return (acc += current.costPerNight);
   }, 0);
 
-  return totalCost2020;
-}
-
-function getSecondYear() {
-  let year2021 = allCustomers[1]
-    .getCustomerBookings(allBookings)
-    .filter((date) => {
-      return date.date.substring(0, 4) === "2021";
-    })
-    .map((room) => {
-      return room.roomNumber;
-    });
-
-  let allRoomsBooked = allRooms.filter((room) => {
-    return year2021.includes(room.number);
-  });
-
-  let totalCost2021 = allRoomsBooked.reduce((acc, current) => {
-    return (acc += current.costPerNight);
-  }, 0);
-
-  return totalCost2021;
-}
-
-function getThirdYear() {
-  let year2022 = allCustomers[1]
-    .getCustomerBookings(allBookings)
-    .filter((date) => {
-      return date.date.substring(0, 4) === "2022";
-    })
-    .map((room) => {
-      return room.roomNumber;
-    });
-
-  let allRoomsBooked = allRooms.filter((room) => {
-    return year2022.includes(room.number);
-  });
-
-  let totalCost2022 = allRoomsBooked.reduce((acc, current) => {
-    return (acc += current.costPerNight);
-  }, 0);
-
-  return totalCost2022;
-}
-
-function getFourthYear() {
-  let year2023 = allCustomers[1]
-    .getCustomerBookings(allBookings)
-    .filter((date) => {
-      return date.date.substring(0, 4) === "2023";
-    })
-    .map((room) => {
-      return room.roomNumber;
-    });
-
-  let allRoomsBooked = allRooms.filter((room) => {
-    return year2023.includes(room.number);
-  });
-
-  let totalCost2023 = allRoomsBooked.reduce((acc, current) => {
-    return (acc += current.costPerNight);
-  }, 0);
-
-  return totalCost2023;
+  return Number(totalCost.toFixed(2));
 }
 
 function getChartTotalCost() {
   let newTotal =
-    getFirstYear() + getSecondYear() + getThirdYear() + getFourthYear();
+    getSpecificYear("2020") +
+    getSpecificYear("2021") +
+    getSpecificYear("2022") +
+    getSpecificYear("2023");
   return newTotal;
 }
