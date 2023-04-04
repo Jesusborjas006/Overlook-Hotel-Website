@@ -13,7 +13,7 @@ This is an app for users to book and and view which room they have booked over t
 7. Follow the instructions in this README to get your local server integrated to support the API [API Server Instructions](https://github.com/turingschool-examples/overlook-api)
 
 ### Preview of the App
-
+![](https://media.giphy.com/media/VSCkmaRpF34PeJS53k/giphy.gif)
 
 ### Context
 This is my final project for Mod 2. It had to be done in 5 days in order to pass.
