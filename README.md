@@ -14,6 +14,7 @@ This is an app for users to book and and view which room they have booked over t
 
 ### Preview of the App
 ![](https://media.giphy.com/media/VSCkmaRpF34PeJS53k/giphy.gif)
+![](https://media.giphy.com/media/IbU9MPNfeHtpaGgyeZ/giphy.gif)
 
 ### Context
 This is my final project for Mod 2. It had to be done in 5 days in order to pass.
