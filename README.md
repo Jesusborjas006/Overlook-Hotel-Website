@@ -1,7 +1,7 @@
 # Overlook Hotel
 
 ### Abstract:
-This is an app for users to book and and view which room they have booked over the years. The user can see how much they have spent on all trips and it's able to calculte the total cost.
+This is an app for users to book and and view which room they have booked over the years. The user can see how much they have spent on all rooms and it's able to calculte the total cost.
 
 ### Installation Instructions
 1. Fork this project to your own Github account
