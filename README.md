@@ -15,6 +15,7 @@ This is an app for users to book and and view which room they have booked over t
 ### Preview of the App
 ![](https://media.giphy.com/media/VSCkmaRpF34PeJS53k/giphy.gif)
 ![](https://media.giphy.com/media/IbU9MPNfeHtpaGgyeZ/giphy.gif)
+<img width="1511" alt="Screenshot 2023-04-04 at 8 41 17 PM" src="https://user-images.githubusercontent.com/111095858/229959594-ee202044-090f-4fa3-8639-98e23f4d1dad.png">
 
 ### Context
 This is my final project for Mod 2. It had to be done in 5 days in order to pass.
@@ -45,3 +46,4 @@ This is my final project for Mod 2. It had to be done in 5 days in order to pass
 - Git/GitHub
 - Slack/Zoom 
 - LigthHouse & Wave
+
